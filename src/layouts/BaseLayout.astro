@@ -8,11 +8,12 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title: string;
   description: string;
-  canonical?: string;
 }
 
-const { title, description, canonical } = Astro.props;
+const { title, description } = Astro.props;
 const siteUrl = "https://qrforagent.com";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = new URL("/og.png", siteUrl).href;
 ---
 
 <!doctype html>
@@ -23,18 +24,23 @@ const siteUrl = "https://qrforagent.com";
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteUrl} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="QR for Agent" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
