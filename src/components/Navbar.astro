@@ -1,0 +1,49 @@
+---
+import MobileMenu from "./MobileMenu.tsx";
+
+const links = [
+  { label: "Features", href: "/#features" },
+  { label: "Docs", href: "/docs" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "GitHub", href: "https://github.com/benswel/qr-agent-core" },
+];
+
+const cta = { text: "Get API Key", href: "#get-started" };
+---
+
+<header class="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+    <!-- Logo -->
+    <a href="/" class="text-lg font-bold tracking-tight text-foreground" style={`font-family: var(--font-heading);`}>
+      QR for Agent
+    </a>
+
+    <!-- Desktop links -->
+    <div class="hidden items-center gap-8 lg:flex">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Desktop CTA -->
+    <div class="hidden lg:block">
+      <a
+        href={cta.href}
+        class="inline-flex items-center rounded-[var(--radius-md)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+      >
+        {cta.text}
+      </a>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="lg:hidden">
+      <MobileMenu links={links} cta={cta} client:load />
+    </div>
+  </nav>
+</header>

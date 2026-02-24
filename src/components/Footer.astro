@@ -1,0 +1,33 @@
+---
+const links = [
+  { label: "GitHub", href: "https://github.com/benswel/qr-agent-core" },
+  { label: "npm", href: "https://www.npmjs.com/package/qr-for-agent" },
+  { label: "Docs", href: "/docs" },
+  { label: "MIT License", href: "https://github.com/benswel/qr-agent-core/blob/main/LICENSE" },
+];
+---
+
+<footer class="border-t border-border bg-background">
+  <div class="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-12 sm:flex-row sm:justify-between sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center gap-2 sm:items-start">
+      <span class="text-sm font-semibold text-foreground" style={`font-family: var(--font-heading);`}>
+        QR for Agent
+      </span>
+      <p class="text-sm text-muted-foreground">
+        QR codes for AI agents. Open source.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-center gap-6">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</footer>

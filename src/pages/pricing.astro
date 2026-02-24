@@ -1,0 +1,297 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CTAButton from "../components/CTAButton.astro";
+import CTASection from "../components/CTASection.astro";
+import FeatureCard from "../components/FeatureCard.astro";
+import ComparisonTable from "../components/ComparisonTable.astro";
+import FAQ from "../components/FAQ.tsx";
+
+const comparisonRows = [
+  {
+    feature: "API access",
+    traditional: "$29-49/month minimum",
+    product: "Included at $0",
+  },
+  {
+    feature: "MCP integration",
+    traditional: "None (or via Zapier)",
+    product: "Native -- 6 dedicated tools",
+  },
+  {
+    feature: "Dynamic QR codes",
+    traditional: "Often locked behind paid plans",
+    product: "Included",
+  },
+  {
+    feature: "Scan analytics",
+    traditional: "Varies by tier",
+    product: "Included",
+  },
+  {
+    feature: "Dashboard required",
+    traditional: "Yes -- API is an add-on",
+    product: "No. API-first.",
+  },
+  {
+    feature: "QR codes after trial",
+    traditional: "Deactivated without warning",
+    product: "Never deactivated",
+  },
+  {
+    feature: "Source code",
+    traditional: "Closed source",
+    product: 'Open source on GitHub',
+  },
+  {
+    feature: "Pricing model",
+    traditional: "Monthly subscription with arbitrary limits",
+    product: "Free to start, usage-based Pro",
+  },
+];
+
+const faqItems = [
+  {
+    question: "Is the free tier really free?",
+    answer:
+      "Yes. No trial period. No expiry date. No \"free for 14 days then we deactivate your codes.\" The free tier includes dynamic QR codes, full API access, MCP server access, scan analytics, and multi-tenant isolation. You don't need to enter a credit card.",
+  },
+  {
+    question: "Will my QR codes stop working?",
+    answer:
+      'No. Your QR codes are never silently deactivated. We\'ve read the same reviews you have -- "a user generated a \'free\' QR code for wedding invitations, but received an email two weeks later saying their free trial expired after they had already printed and mailed the invitations." That does not happen here. If anything changes with your account, you\'ll get clear notice and time to act.',
+  },
+  {
+    question: "Do I need a credit card to start?",
+    answer:
+      "No. Sign up, get your API key, and start creating QR codes. No payment information required.",
+  },
+  {
+    question: "What happens when I hit the free tier limit?",
+    answer:
+      "You'll get a clear notification before you reach the limit, and another when you hit it. Your existing QR codes keep working -- they are never deactivated. You'll have a straightforward upgrade path to the Pro plan when it launches.",
+  },
+  {
+    question: "Can I self-host instead of using the cloud service?",
+    answer:
+      'Yes. QR for Agent is MIT-licensed and fully open source. Clone the repo, deploy with Docker or Railway, and run it on your own infrastructure. Full self-hosting documentation is available in the <a href="/docs" class="underline hover:text-foreground">docs</a>.',
+  },
+  {
+    question: "What will the Pro plan cost?",
+    answer:
+      "The Pro plan will be usage-based -- you pay for what you consume, not for an arbitrary monthly tier. Pricing details are being finalized. Join the waitlist to get early access and have a say in the pricing structure.",
+  },
+];
+---
+
+<BaseLayout
+  title="QR Code API Pricing — QR for Agent"
+  description="Free dynamic QR codes with full API and MCP access. No credit card. No trial. No bait-and-switch. Pay only when you scale."
+>
+  <!-- Section 1: Hero Pricing -->
+  <Hero
+    title="QR code API pricing. No surprises."
+    subtitle="Free to start. Pay as you grow. Your QR codes never expire silently."
+    primaryCTA={{ text: "Get Your API Key", href: "#get-started" }}
+    secondaryCTA={{ text: "View on GitHub", href: "https://github.com/benswel/qr-agent-core" }}
+  >
+    <p class="mx-auto max-w-3xl text-(--text-body) text-muted-foreground">
+      Most QR code services lure you in with a "free" plan, then deactivate your codes after 14 days and demand $25-50/month to keep them alive. We built QR for Agent to be the opposite. The free tier is real. The API is included. And your QR codes keep working.
+    </p>
+  </Hero>
+
+  <!-- Section 2: Plans -->
+  <Section background="muted">
+    <SectionHeading
+      title="Two plans. One principle: you see exactly what you pay for."
+    />
+
+    <div class="mx-auto grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-2">
+      <!-- Free Plan Card -->
+      <div class="relative rounded-(--radius-lg) border border-foreground/20 p-8">
+        <span class="absolute top-4 right-4 rounded-(--radius-full) bg-foreground px-3 py-1 text-xs font-medium text-background">
+          Recommended
+        </span>
+
+        <h3 class="text-lg font-semibold text-foreground">Free</h3>
+        <p class="mt-2 text-3xl font-bold tracking-tight text-foreground">
+          $0 <span class="text-base font-normal text-muted-foreground">/ forever</span>
+        </p>
+
+        <ul class="mt-6 space-y-3 text-sm text-muted-foreground">
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Dynamic QR codes
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Full REST API access
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> MCP server access
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Scan analytics
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Multi-tenant isolation
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Open source (MIT)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-muted-foreground">&#10003;</span> Generous free tier rate limits
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-muted-foreground">&#10003;</span> Community support (GitHub)
+          </li>
+        </ul>
+
+        <p class="mt-6 text-sm font-medium text-muted-foreground">
+          No credit card required.
+        </p>
+
+        <div class="mt-6">
+          <CTAButton href="#get-started" text="Get Your API Key" variant="primary" class="w-full justify-center" />
+        </div>
+      </div>
+
+      <!-- Pro Plan Card -->
+      <div class="relative rounded-(--radius-lg) border border-border p-8">
+        <span class="absolute top-4 right-4 rounded-(--radius-full) border border-border px-3 py-1 text-xs font-medium text-muted-foreground">
+          Coming soon
+        </span>
+
+        <h3 class="text-lg font-semibold text-foreground">Pro</h3>
+        <p class="mt-2 text-3xl font-bold tracking-tight text-foreground">
+          Usage-based <span class="text-base font-normal text-muted-foreground">(coming soon)</span>
+        </p>
+
+        <ul class="mt-6 space-y-3 text-sm text-muted-foreground">
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Dynamic QR codes
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Full REST API access
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> MCP server access
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Scan analytics
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Multi-tenant isolation
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Open source (MIT)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Higher rate limits (extended)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Priority / dedicated support
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Custom domain
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> SLA
+          </li>
+        </ul>
+
+        <p class="mt-6 text-sm font-medium text-muted-foreground">
+          Pay only for what you use.
+        </p>
+
+        <div class="mt-6">
+          <CTAButton href="#get-started" text="Join the Waitlist" variant="outline" class="w-full justify-center" />
+        </div>
+      </div>
+    </div>
+
+    <p class="mx-auto mt-8 max-w-3xl text-center text-sm text-muted-foreground">
+      The Pro plan is currently in development. Pricing will be usage-based -- you pay for what you consume, not for an arbitrary tier. Join the waitlist to get early access and input on pricing.
+    </p>
+  </Section>
+
+  <!-- Section 3: What's Included in Free -->
+  <Section background="default">
+    <SectionHeading
+      title="What $0 gets you"
+      subtitle="Everything you need to give your AI agent -- or your app -- full QR code capabilities. No trial. No expiry. No credit card."
+    />
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <FeatureCard
+        title="Dynamic QR codes"
+        description="Create QR codes that you can update after printing. Change the destination URL anytime -- the image stays the same. Your agent handles it with a single prompt."
+      />
+      <FeatureCard
+        title="Full REST API"
+        description={`Every endpoint. No paywall. No "upgrade to unlock API access." Other services charge $49/month just to make an API call. Here, the API is the product -- and it's free to start.`}
+      />
+      <FeatureCard
+        title="MCP server access"
+        description="npx qr-for-agent -- your AI agent creates, updates, and tracks QR codes in natural language. Works with Claude Desktop, Cursor, and any MCP-compatible client."
+      />
+      <FeatureCard
+        title="Scan analytics"
+        description="Track every scan: count, timestamp, referrer. Your agent can pull analytics data and adjust campaigns without opening a dashboard."
+      />
+      <FeatureCard
+        title="Multi-tenant isolation"
+        description="One API key per client. Build agents that serve multiple customers with complete data isolation. Agencies and consultants: this is built for your workflow."
+      />
+      <FeatureCard
+        title="Open source"
+        description="MIT-licensed. Read the code on GitHub. Self-host on your own infrastructure if you prefer. No vendor lock-in -- if we disappear, your QR codes keep working."
+      />
+    </div>
+
+    <div class="mt-10 text-center">
+      <CTAButton href="#get-started" text="Get Your API Key" variant="primary" size="lg" />
+    </div>
+  </Section>
+
+  <!-- Section 4: Comparison with Alternatives -->
+  <Section background="muted">
+    <SectionHeading
+      title="What others charge $49/month for, we include for free."
+      subtitle={`"Most QR code APIs are either overpriced ($50+/month for basic generation), overcomplicated, or require using their hosted dashboard." Here's how the market compares.`}
+    />
+
+    <ComparisonTable rows={comparisonRows} />
+
+    <p class="mx-auto mt-8 max-w-3xl text-(--text-body) text-muted-foreground">
+      For context: Uniqode charges $49/month for API access. Bitly charges $29/month for 10 QR codes. QR Tiger starts at $37/month for their API plan. QR for Agent gives you the full API, MCP access, and dynamic QR codes at $0.
+    </p>
+
+    <div class="mt-10 text-center">
+      <CTAButton
+        href="https://github.com/benswel/qr-agent-core"
+        text="View on GitHub"
+        variant="outline"
+        size="lg"
+        external={true}
+      />
+    </div>
+  </Section>
+
+  <!-- Section 5: FAQ Pricing -->
+  <Section background="default">
+    <SectionHeading title="Frequently asked questions" />
+
+    <div class="mx-auto max-w-3xl">
+      <FAQ items={faqItems} client:visible />
+    </div>
+  </Section>
+
+  <!-- Section 6: CTA Final -->
+  <CTASection
+    title="Start free. No credit card. No surprises."
+    description="Dynamic QR codes. Full API. MCP access. Scan analytics. Open source. $0."
+    primaryCTA={{ text: "Get Your API Key", href: "#get-started" }}
+    secondaryCTA={{ text: "View on GitHub", href: "https://github.com/benswel/qr-agent-core" }}
+  />
+</BaseLayout>

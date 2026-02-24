@@ -1,0 +1,318 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CTAButton from "../components/CTAButton.astro";
+import CTASection from "../components/CTASection.astro";
+import TerminalWindow from "../components/TerminalWindow.astro";
+import FeatureCard from "../components/FeatureCard.astro";
+import ComparisonTable from "../components/ComparisonTable.astro";
+import StepCard from "../components/StepCard.astro";
+
+const comparisonRows = [
+  {
+    feature: "MCP integration",
+    traditional: "None (or via Zapier)",
+    product: "Native -- 6 dedicated tools",
+  },
+  {
+    feature: "Installation",
+    traditional: "Read 6 pages of docs, configure OAuth",
+    product: "<code class='font-mono text-code-green'>npx qr-for-agent</code>",
+  },
+  {
+    feature: "API access",
+    traditional: "Pro plans only ($49+/month)",
+    product: "Free tier includes full API",
+  },
+  {
+    feature: "QR codes after trial",
+    traditional: "Deactivated without warning",
+    product: "Your QR codes never expire silently",
+  },
+  {
+    feature: "Context footprint",
+    traditional: "27+ tools, 60K tokens burned",
+    product: "6 tools, 5 kB total",
+  },
+  {
+    feature: "Source code",
+    traditional: "Closed",
+    product: "Open source on GitHub",
+  },
+  {
+    feature: "Dashboard required",
+    traditional: "Yes",
+    product: "No. API-first.",
+  },
+  {
+    feature: "Pricing",
+    traditional: '"Contact Sales" or bait-and-switch',
+    product: 'Free to start. Transparent. See <a href="/pricing" class="underline hover:text-foreground">pricing</a>.',
+  },
+];
+---
+
+<BaseLayout
+  title="QR Code MCP Server for AI Agents — QR for Agent"
+  description="Give your AI agent the power to create, update, and track dynamic QR codes. MCP-native. One command to install. Open source."
+>
+  <!-- Section 1: Hero -->
+  <Hero
+    title="The first QR code MCP server built for AI agents"
+    subtitle="Your AI agent can write code, send emails, and manage projects. Now it can create, update, and track dynamic QR codes too. One command. No dashboard. No bloat."
+    primaryCTA={{ text: "Get Your API Key", href: "#get-started" }}
+    secondaryCTA={{ text: "View on GitHub", href: "https://github.com/benswel/qr-agent-core" }}
+  >
+    <TerminalWindow>
+      <pre><code><span class="text-code-green">$</span> npx qr-for-agent</code></pre>
+    </TerminalWindow>
+    <p class="mt-4 text-(--text-small) text-muted-foreground">
+      30 seconds from install to your first QR code.
+    </p>
+  </Hero>
+
+  <!-- Section 2: Demo -->
+  <Section background="muted">
+    <SectionHeading
+      title="See it in action"
+      subtitle="Ask your agent to create a QR code. It does."
+    />
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <TerminalWindow title="Prompt">
+        <pre><code>Create a dynamic QR code for our event page at
+https://conf.example.com/2026 and give me the scan tracking URL.</code></pre>
+      </TerminalWindow>
+
+      <TerminalWindow title="Agent response">
+        <pre><code class="text-code-green">{`{
+  "id": "qr_8x7k2m",
+  "type": "dynamic",
+  "target_url": "https://conf.example.com/2026",
+  "qr_code_url": "https://api.qragentcore.com/qr/qr_8x7k2m.png",
+  "scan_tracking": "https://api.qragentcore.com/qr/qr_8x7k2m/scans",
+  "created_at": "2026-02-24T10:30:00Z"
+}`}</code></pre>
+      </TerminalWindow>
+    </div>
+
+    <p class="mt-8 max-w-3xl text-(--text-body) text-muted-foreground">
+      Your agent calls the MCP tools in natural language. No SDK to learn. No multiple API calls to chain. One prompt, one QR code -- dynamic, trackable, and updatable without changing the image.
+    </p>
+
+    <div class="mt-8">
+      <CTAButton href="/docs" text="Read the Docs" variant="outline" />
+    </div>
+  </Section>
+
+  <!-- Section 3: How It Works -->
+  <Section background="default">
+    <SectionHeading title="Three steps. That's it." />
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <StepCard
+        number={1}
+        title="Install"
+        description="Works with Claude Desktop, Cursor, and any MCP-compatible client. No config files. No Python paths. No environment variable debugging."
+      >
+        <TerminalWindow>
+          <pre><code><span class="text-code-green">$</span> npx qr-for-agent</code></pre>
+        </TerminalWindow>
+      </StepCard>
+
+      <StepCard
+        number={2}
+        title="Configure"
+        description="Add your API key:"
+      >
+        <TerminalWindow>
+          <pre><code class="text-code-green">{`{
+  "mcpServers": {
+    "qr-for-agent": {
+      "command": "npx",
+      "args": ["-y", "qr-for-agent"],
+      "env": {
+        "API_KEY": "your-api-key",
+        "BASE_URL": "https://api.qragentcore.com"
+      }
+    }
+  }
+}`}</code></pre>
+        </TerminalWindow>
+      </StepCard>
+
+      <StepCard
+        number={3}
+        title="Create"
+        description="Your agent now has 6 QR code tools. Ask it to create, read, update, list, delete, or track scans on dynamic QR codes -- in plain language."
+      />
+    </div>
+
+    <div class="mt-10 text-center">
+      <CTAButton href="#get-started" text="Get Your API Key" variant="primary" size="lg" />
+    </div>
+  </Section>
+
+  <!-- Section 4: Features -->
+  <Section id="features" background="muted">
+    <SectionHeading
+      title="Built for AI agents. Not retrofitted."
+      subtitle="Most QR code services bolt on an API as an afterthought. QR for Agent is MCP-native from line one."
+    />
+
+    <!-- 6 MCP Tools list -->
+    <div class="mb-10">
+      <p class="mb-4 text-(--text-body) font-medium text-foreground">
+        Your agent gets exactly 6 tools -- no more, no less:
+      </p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li>
+          <code class="font-mono text-code-green">create_qr_code</code>
+          <span class="text-muted-foreground"> -- Generate a dynamic QR code with a target URL</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">get_qr_code</code>
+          <span class="text-muted-foreground"> -- Retrieve details and metadata for any QR code</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">update_qr_destination</code>
+          <span class="text-muted-foreground"> -- Change the destination URL without reprinting</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">list_qr_codes</code>
+          <span class="text-muted-foreground"> -- List all QR codes under an API key</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">delete_qr_code</code>
+          <span class="text-muted-foreground"> -- Remove a QR code permanently</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">get_qr_analytics</code>
+          <span class="text-muted-foreground"> -- Get scan count, timestamps, and referrer data</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Highlight line -->
+    <p class="mb-10 rounded-(--radius-md) border border-border bg-code-bg px-6 py-4 text-center font-mono text-(--text-body) font-medium text-foreground">
+      6 tools. 3 dependencies. 5 kB package. Your context window stays clean.
+    </p>
+
+    <!-- Feature cards grid -->
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <FeatureCard
+        title="Dynamic QR Codes"
+        description="Update where a QR code points after it's printed. No new image needed. Your agent handles it with a single prompt."
+      />
+      <FeatureCard
+        title="Scan Analytics"
+        description="Track every scan: count, timestamp, referrer. Your agent can pull analytics and adjust campaigns in real time."
+      />
+      <FeatureCard
+        title="Multi-Tenant Isolation"
+        description="One API key per client. Build agents for multiple customers without data leaking between them. Agencies and consultants: this is for you."
+      />
+      <FeatureCard
+        title="REST API + MCP"
+        description="Not using MCP? The full REST API works standalone. Every MCP tool maps 1:1 to an HTTP endpoint. Use whichever protocol fits your stack."
+      />
+      <FeatureCard
+        title="Lightweight by Design"
+        description={`The "too many tools" problem is real -- "context windows filling up with tool definitions, loading 50 tools meant burning 100K+ tokens before the conversation started." QR for Agent ships 6 tools at 5 kB. Your agent keeps its focus.`}
+      />
+    </div>
+
+    <div class="mt-10 text-center">
+      <CTAButton href="/docs" text="Read the Docs" variant="outline" />
+    </div>
+  </Section>
+
+  <!-- Section 5: Comparison -->
+  <Section background="default">
+    <SectionHeading
+      title="QR for Agent vs. traditional QR code services"
+      subtitle={`"Most QR code APIs are either overpriced, overcomplicated, or require using their hosted dashboard." Here's how we compare.`}
+    />
+
+    <ComparisonTable rows={comparisonRows} />
+
+    <div class="mt-10 text-center">
+      <CTAButton href="/pricing" text="View pricing" variant="outline" />
+    </div>
+  </Section>
+
+  <!-- Section 6: Use Cases -->
+  <Section background="muted">
+    <SectionHeading
+      title="What your agent builds with QR codes"
+      subtitle="AI agents are no longer just answering questions. They deploy apps, run workflows, and now -- they create real-world objects."
+    />
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <FeatureCard
+        title="Marketing Campaigns"
+        description="Your agent generates a unique dynamic QR code for each campaign, tracks scan analytics daily, and updates the destination URL when the landing page changes. No manual dashboard work. No broken links on printed flyers."
+      />
+      <FeatureCard
+        title="Event Management"
+        description={`"Create a QR code for the conference registration page." Done. Venue changes? Your agent updates the URL. After the event, it pulls scan data to measure attendance conversion.`}
+      />
+      <FeatureCard
+        title="Restaurant Menus"
+        description="Generate a QR code per location. When the menu changes, your agent updates the link -- the printed QR on the table stays the same. Multi-tenant isolation keeps each restaurant's data separate."
+      />
+      <FeatureCard
+        title="Business Cards & Collateral"
+        description="Your agent creates a dynamic QR code that points to a vCard or portfolio. When the contact changes jobs, update the destination. The printed card still works."
+      />
+    </div>
+
+    <div class="mt-10 text-center">
+      <CTAButton href="/docs" text="Read the Docs" variant="outline" />
+    </div>
+  </Section>
+
+  <!-- Section 7: Open Source -->
+  <Section background="default">
+    <SectionHeading title="Open source. No vendor lock-in." />
+
+    <div class="mx-auto max-w-3xl space-y-6 text-(--text-body) text-muted-foreground">
+      <p>
+        The code is on GitHub. Read it. Fork it. Self-host it if you want.
+      </p>
+      <p>
+        QR for Agent is MIT-licensed. If we disappear tomorrow, your QR codes keep working. Teams keep rebuilding small but critical utilities -- QR codes, short URLs, tokens -- over and over again. We built it once, correctly, and opened the source.
+      </p>
+      <p>
+        Self-host on your infrastructure with Docker or Railway. Or use the hosted API and skip the ops work. Your call.
+      </p>
+    </div>
+
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+      <CTAButton
+        href="https://github.com/benswel/qr-agent-core"
+        text="View on GitHub"
+        variant="primary"
+        size="lg"
+        external={true}
+      />
+      <CTAButton href="/docs" text="Read the Docs" variant="outline" size="lg" />
+    </div>
+  </Section>
+
+  <!-- Section 8: CTA Final -->
+  <CTASection
+    title="Give your agent the power to create QR codes"
+    description="MCP-native. API-first. Open source. Free to start."
+    primaryCTA={{ text: "Get Your API Key", href: "#get-started" }}
+    secondaryCTA={{ text: "View on GitHub", href: "https://github.com/benswel/qr-agent-core" }}
+  >
+    <div class="mt-8 mb-2">
+      <TerminalWindow>
+        <pre><code><span class="text-code-green">$</span> npx qr-for-agent</code></pre>
+      </TerminalWindow>
+    </div>
+  </CTASection>
+</BaseLayout>

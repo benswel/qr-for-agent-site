@@ -1,0 +1,37 @@
+---
+import Container from "./Container.astro";
+
+interface Props {
+  id?: string;
+  background?: "default" | "muted";
+  padding?: "default" | "large" | "none";
+  class?: string;
+}
+
+const {
+  id,
+  background = "default",
+  padding = "default",
+  class: className,
+} = Astro.props;
+
+const bgClasses = {
+  default: "bg-background",
+  muted: "bg-muted",
+};
+
+const paddingClasses = {
+  default: "py-(--spacing-section)",
+  large: "py-(--spacing-section-lg)",
+  none: "",
+};
+---
+
+<section
+  id={id}
+  class:list={[bgClasses[background], paddingClasses[padding], className]}
+>
+  <Container>
+    <slot />
+  </Container>
+</section>

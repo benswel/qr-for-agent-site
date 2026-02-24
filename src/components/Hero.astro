@@ -1,0 +1,57 @@
+---
+import Container from "./Container.astro";
+import CTAButton from "./CTAButton.astro";
+
+interface Props {
+  title: string;
+  subtitle: string;
+  primaryCTA?: { text: string; href: string };
+  secondaryCTA?: { text: string; href: string };
+}
+
+const { title, subtitle, primaryCTA, secondaryCTA } = Astro.props;
+const hasContent = Astro.slots.has('default') || primaryCTA || secondaryCTA;
+---
+
+<section class:list={["bg-background", hasContent ? "py-(--spacing-section-lg)" : "py-(--spacing-section)"]}>
+  <Container>
+    <div class="flex flex-col items-center text-center">
+      <h1 class="max-w-4xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-(--text-h1)">
+        {title}
+      </h1>
+
+      <p class="mt-6 max-w-2xl text-(--text-body-lg) text-muted-foreground">
+        {subtitle}
+      </p>
+
+      <!-- Slot for TerminalWindow or other visual content -->
+      {Astro.slots.has('default') && (
+        <div class="mt-10 w-full">
+          <slot />
+        </div>
+      )}
+
+      {(primaryCTA || secondaryCTA) && (
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          {primaryCTA && (
+            <CTAButton
+              href={primaryCTA.href}
+              text={primaryCTA.text}
+              variant="primary"
+              size="lg"
+            />
+          )}
+          {secondaryCTA && (
+            <CTAButton
+              href={secondaryCTA.href}
+              text={secondaryCTA.text}
+              variant="outline"
+              size="lg"
+              external={secondaryCTA.href.startsWith("http")}
+            />
+          )}
+        </div>
+      )}
+    </div>
+  </Container>
+</section>

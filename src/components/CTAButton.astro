@@ -1,0 +1,48 @@
+---
+interface Props {
+  href: string;
+  text: string;
+  variant?: "primary" | "outline" | "ghost";
+  size?: "default" | "lg" | "sm";
+  class?: string;
+  external?: boolean;
+}
+
+const {
+  href,
+  text,
+  variant = "primary",
+  size = "default",
+  class: className,
+  external = false,
+} = Astro.props;
+
+const variantClasses = {
+  primary: "bg-primary text-primary-foreground hover:opacity-90",
+  outline: "border border-border bg-transparent text-foreground hover:bg-muted",
+  ghost: "bg-transparent text-muted-foreground hover:text-foreground",
+};
+
+const sizeClasses = {
+  sm: "px-4 py-2 text-sm",
+  default: "px-6 py-2.5 text-sm",
+  lg: "px-8 py-3 text-base",
+};
+
+const externalAttrs = external
+  ? { target: "_blank", rel: "noopener noreferrer" }
+  : {};
+---
+
+<a
+  href={href}
+  class:list={[
+    "inline-flex items-center justify-center rounded-(--radius-md) font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+    variantClasses[variant],
+    sizeClasses[size],
+    className,
+  ]}
+  {...externalAttrs}
+>
+  {text}
+</a>

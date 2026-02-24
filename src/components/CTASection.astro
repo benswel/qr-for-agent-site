@@ -1,0 +1,50 @@
+---
+import Container from "./Container.astro";
+import CTAButton from "./CTAButton.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  primaryCTA: { text: string; href: string };
+  secondaryCTA?: { text: string; href: string };
+}
+
+const { title, description, primaryCTA, secondaryCTA } = Astro.props;
+---
+
+<section class="bg-muted py-(--spacing-section-lg)">
+  <Container>
+    <div class="flex flex-col items-center text-center">
+      <h2 class="text-(--text-h2) font-bold tracking-tight text-foreground">
+        {title}
+      </h2>
+
+      {description && (
+        <p class="mt-4 max-w-2xl text-(--text-body-lg) text-muted-foreground">
+          {description}
+        </p>
+      )}
+
+      <!-- Slot for optional content (e.g. terminal window) -->
+      <slot />
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <CTAButton
+          href={primaryCTA.href}
+          text={primaryCTA.text}
+          variant="primary"
+          size="lg"
+        />
+        {secondaryCTA && (
+          <CTAButton
+            href={secondaryCTA.href}
+            text={secondaryCTA.text}
+            variant="outline"
+            size="lg"
+            external={secondaryCTA.href.startsWith("http")}
+          />
+        )}
+      </div>
+    </div>
+  </Container>
+</section>

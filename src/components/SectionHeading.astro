@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  align?: "left" | "center";
+  tag?: "h1" | "h2" | "h3";
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  align = "center",
+  tag = "h2",
+  class: className,
+} = Astro.props;
+
+const Tag = tag;
+const isCenter = align === "center";
+---
+
+<div
+  class:list={[
+    isCenter ? "text-center" : "text-left",
+    "mb-(--spacing-element)",
+    className,
+  ]}
+>
+  <Tag class="text-(--text-h2) font-(--font-heading) font-bold tracking-tight text-foreground">
+    {title}
+  </Tag>
+  {subtitle && (
+    <p
+      class:list={[
+        "mt-4 max-w-2xl text-(--text-body-lg) text-muted-foreground",
+        isCenter && "mx-auto",
+      ]}
+    >
+      {subtitle}
+    </p>
+  )}
+</div>
