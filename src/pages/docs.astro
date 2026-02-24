@@ -46,7 +46,7 @@ import TerminalWindow from "../components/TerminalWindow.astro";
         <span class="font-mono text-(--text-h2) font-bold text-foreground">2</span>
         <h3 class="text-(--text-h3) font-bold text-foreground">Get your API key</h3>
       </div>
-      <CTAButton href="#get-started" text="Get Your API Key" variant="primary" />
+      <CTAButton href="/get-started" text="Get Your API Key" variant="primary" />
       <p class="mt-4 text-(--text-body) text-muted-foreground">
         Your key follows the format <code class="font-mono text-code-green">qr_</code> + 32-character random string. Keep it in your environment variables.
       </p>
@@ -707,7 +707,7 @@ volumes:
   <CTASection
     title="Start building"
     description="Free tier. Full API access. No credit card."
-    primaryCTA={{ text: "Get Your API Key", href: "#get-started" }}
+    primaryCTA={{ text: "Get Your API Key", href: "/get-started" }}
     secondaryCTA={{ text: "View on GitHub", href: "https://github.com/benswel/qr-agent-core" }}
   >
     <div class="mt-8 mb-2">

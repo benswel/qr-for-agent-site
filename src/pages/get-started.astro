@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import StepCard from "../components/StepCard.astro";
+import TerminalWindow from "../components/TerminalWindow.astro";
+import CTAButton from "../components/CTAButton.astro";
+import RegisterForm from "../components/RegisterForm.tsx";
+---
+
+<BaseLayout
+  title="Get Your API Key — QR for Agent"
+  description="Get your free API key for QR for Agent. Create, update, and track dynamic QR codes in seconds."
+>
+  <!-- Hero / Form Section -->
+  <Section background="default" padding="large">
+    <div class="flex flex-col items-center text-center">
+      <h1 class="max-w-4xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-(--text-h1)">
+        Get Your API Key
+      </h1>
+      <p class="mt-6 max-w-2xl text-(--text-body-lg) text-muted-foreground">
+        Enter your email and get your API key instantly. Free. No credit card.
+      </p>
+
+      <div class="mt-10 w-full">
+        <RegisterForm client:load />
+      </div>
+    </div>
+  </Section>
+
+  <!-- Next Steps -->
+  <Section background="muted">
+    <SectionHeading
+      title="Next steps"
+      subtitle="From API key to your first QR code in 30 seconds."
+    />
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <StepCard
+        number={1}
+        title="Install"
+        description="Works with Claude Desktop, Cursor, and any MCP-compatible client."
+      >
+        <TerminalWindow>
+          <pre><code><span class="text-code-green">$</span> npx qr-for-agent</code></pre>
+        </TerminalWindow>
+      </StepCard>
+
+      <StepCard
+        number={2}
+        title="Configure"
+        description="Add your API key to the MCP config:"
+      >
+        <TerminalWindow>
+          <pre><code class="text-code-green">{`{
+  "mcpServers": {
+    "qr-for-agent": {
+      "command": "npx",
+      "args": ["-y", "qr-for-agent"],
+      "env": {
+        "API_KEY": "your-api-key",
+        "BASE_URL": "https://api.qragentcore.com"
+      }
+    }
+  }
+}`}</code></pre>
+        </TerminalWindow>
+      </StepCard>
+
+      <StepCard
+        number={3}
+        title="Create"
+        description="Ask your agent to create a QR code. It has 6 tools ready to go."
+      />
+    </div>
+
+    <div class="mt-10 text-center">
+      <CTAButton href="/docs" text="Read the Docs" variant="outline" />
+    </div>
+  </Section>
+</BaseLayout>

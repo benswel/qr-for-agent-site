@@ -17,7 +17,7 @@ Marketing site for **QR for Agent** (qrforagent.com) — a QR-as-a-Service API b
 - **Interactive islands:** React 19 (`@astrojs/react`)
 - **Fonts:** Geist Sans + Geist Mono (via `@fontsource`)
 - **UI primitives:** Radix UI (accordion), CVA, clsx, tailwind-merge
-- **Deploy:** Cloudflare Pages (auto-deploy from GitHub not yet connected — currently manual `wrangler pages deploy dist/`)
+- **Deploy:** Cloudflare Pages (auto-deploy via GitHub Actions on push to main)
 
 ## Pages
 
@@ -69,6 +69,9 @@ npm run preview   # Preview built site locally
 
 ## Deploy
 
+Auto-deploy on push to main via GitHub Actions (`.github/workflows/deploy.yml`).
+
+Manual deploy if needed:
 ```bash
 npm run build
 npx wrangler pages deploy dist/ --project-name=qr-for-agent
