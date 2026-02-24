@@ -21,7 +21,7 @@ export default function RegisterForm() {
     setError("");
 
     try {
-      const res = await fetch("https://api.qragentcore.com/api/register", {
+      const res = await fetch("https://qr-agent-core-production.up.railway.app/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
