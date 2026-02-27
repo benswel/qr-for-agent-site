@@ -3,6 +3,7 @@ import { useState } from "react";
 type FormState = "idle" | "loading" | "success" | "error";
 
 export default function WaitlistForm() {
+  const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [state, setState] = useState<FormState>("idle");
   const [message, setMessage] = useState("");
@@ -43,6 +44,17 @@ export default function WaitlistForm() {
     );
   }
 
+  if (!open) {
+    return (
+      <button
+        onClick={() => setOpen(true)}
+        className="w-full rounded-[var(--radius-md)] border border-[var(--color-border)] px-6 py-3 text-center text-sm font-medium text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-muted)]"
+      >
+        Join the Waitlist
+      </button>
+    );
+  }
+
   return (
     <div>
       <form
@@ -52,6 +64,7 @@ export default function WaitlistForm() {
         <input
           type="email"
           required
+          autoFocus
           placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
