@@ -18,7 +18,7 @@ const comparisonRows = [
   {
     feature: "MCP integration",
     traditional: "None (or via Zapier)",
-    product: "Native -- 6 dedicated tools",
+    product: "Native — 9 dedicated tools",
   },
   {
     feature: "Dynamic QR codes",
@@ -28,6 +28,16 @@ const comparisonRows = [
   {
     feature: "Scan analytics",
     traditional: "Varies by tier",
+    product: "Included",
+  },
+  {
+    feature: "Custom QR styling",
+    traditional: "Paid plans only",
+    product: "Included (colors, shapes, logo)",
+  },
+  {
+    feature: "Real-time webhooks",
+    traditional: "Enterprise only",
     product: "Included",
   },
   {
@@ -56,7 +66,7 @@ const faqItems = [
   {
     question: "Is the free tier really free?",
     answer:
-      "Yes. No trial period. No expiry date. No \"free for 14 days then we deactivate your codes.\" The free tier includes dynamic QR codes, full API access, MCP server access, scan analytics, and multi-tenant isolation. You don't need to enter a credit card.",
+      "Yes. No trial period. No expiry date. No \"free for 14 days then we deactivate your codes.\" The free tier includes 10 dynamic QR codes, 1,000 scans/month, custom styled QR codes, full API access, MCP server (9 tools), scan analytics, 1 webhook endpoint, and multi-tenant isolation. You don't need to enter a credit card.",
   },
   {
     question: "Will my QR codes stop working?",
@@ -71,7 +81,7 @@ const faqItems = [
   {
     question: "What happens when I hit the free tier limit?",
     answer:
-      "You'll get a clear notification before you reach the limit, and another when you hit it. Your existing QR codes keep working -- they are never deactivated. You'll have a straightforward upgrade path to the Pro plan when it launches.",
+      "The free tier includes 10 QR codes and 1,000 scans/month. You'll get a clear notification before you reach the limit, and another when you hit it. Your existing QR codes keep working -- they are never deactivated. Upgrade to Pro ($19/month) for unlimited QR codes and scans.",
   },
   {
     question: "Can I self-host instead of using the cloud service?",
@@ -81,7 +91,12 @@ const faqItems = [
   {
     question: "What will the Pro plan cost?",
     answer:
-      "The Pro plan will be usage-based -- you pay for what you consume, not for an arbitrary monthly tier. Pricing details are being finalized. Join the waitlist to get early access and have a say in the pricing structure.",
+      "The Pro plan will be $19/month. You get unlimited QR codes, unlimited scans, unlimited webhooks, custom domain for branded short URLs, 99.9% uptime SLA, and priority support. Join the waitlist to get early access when it launches.",
+  },
+  {
+    question: "Are custom QR codes and webhooks included in the free tier?",
+    answer:
+      "Yes. Custom styled QR codes (colors, dot shapes, corner styles, logo embedding) are included at every tier. The free tier includes 1 webhook endpoint for real-time scan notifications. Pro gives you unlimited webhooks.",
   },
 ];
 ---
@@ -122,25 +137,31 @@ const faqItems = [
 
         <ul class="mt-6 space-y-3 text-sm text-muted-foreground">
           <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> Dynamic QR codes
+            <span class="text-foreground">&#10003;</span> 10 dynamic QR codes
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> 1,000 scans/month
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> Custom styled QR codes
           </li>
           <li class="flex items-center gap-2">
             <span class="text-foreground">&#10003;</span> Full REST API access
           </li>
           <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> MCP server access
+            <span class="text-foreground">&#10003;</span> MCP server (9 tools)
           </li>
           <li class="flex items-center gap-2">
             <span class="text-foreground">&#10003;</span> Scan analytics
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-foreground">&#10003;</span> 1 webhook endpoint
           </li>
           <li class="flex items-center gap-2">
             <span class="text-foreground">&#10003;</span> Multi-tenant isolation
           </li>
           <li class="flex items-center gap-2">
             <span class="text-foreground">&#10003;</span> Open source (MIT)
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-muted-foreground">&#10003;</span> Generous free tier rate limits
           </li>
           <li class="flex items-center gap-2">
             <span class="text-muted-foreground">&#10003;</span> Community support (GitHub)
@@ -164,44 +185,38 @@ const faqItems = [
 
         <h3 class="text-lg font-semibold text-foreground">Pro</h3>
         <p class="mt-2 text-3xl font-bold tracking-tight text-foreground">
-          Usage-based <span class="text-base font-normal text-muted-foreground">(coming soon)</span>
+          $19 <span class="text-base font-normal text-muted-foreground">/ month</span>
         </p>
 
         <ul class="mt-6 space-y-3 text-sm text-muted-foreground">
           <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> Dynamic QR codes
+            <span class="text-foreground">&#10003;</span> Unlimited QR codes
           </li>
           <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> Full REST API access
+            <span class="text-foreground">&#10003;</span> Unlimited scans
           </li>
           <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> MCP server access
+            <span class="text-foreground">&#10003;</span> Unlimited webhooks
           </li>
           <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> Scan analytics
+            <span class="text-foreground">&#10003;</span> Everything in Free
           </li>
           <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> Multi-tenant isolation
+            <span class="text-foreground">&#10003;</span> Custom domain (branded short URLs)
           </li>
           <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> Open source (MIT)
+            <span class="text-foreground">&#10003;</span> Higher rate limits
           </li>
           <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> Higher rate limits (extended)
+            <span class="text-foreground">&#10003;</span> Priority support (email, 24h)
           </li>
           <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> Priority / dedicated support
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> Custom domain
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="text-foreground">&#10003;</span> SLA
+            <span class="text-foreground">&#10003;</span> 99.9% uptime SLA
           </li>
         </ul>
 
         <p class="mt-6 text-sm font-medium text-muted-foreground">
-          Pay only for what you use.
+          No limits. No surprises.
         </p>
 
         <div class="mt-6">
@@ -211,7 +226,7 @@ const faqItems = [
     </div>
 
     <p class="mx-auto mt-8 max-w-3xl text-center text-sm text-muted-foreground">
-      The Pro plan is currently in development. Pricing will be usage-based -- you pay for what you consume, not for an arbitrary tier. Join the waitlist to get early access and input on pricing.
+      The Pro plan is coming soon at $19/month. Join the waitlist to get early access. In the meantime, the free tier gives you everything you need to build and ship.
     </p>
   </Section>
 
@@ -236,8 +251,16 @@ const faqItems = [
         description="npx qr-for-agent -- your AI agent creates, updates, and tracks QR codes in natural language. Works with Claude Desktop, Cursor, and any MCP-compatible client."
       />
       <FeatureCard
+        title="Custom styled QR codes"
+        description="Colors, dot shapes, corner styles, logo embedding -- your agent creates on-brand QR codes in one prompt. Included in the free tier. No design tool needed."
+      />
+      <FeatureCard
         title="Scan analytics"
         description="Track every scan: count, timestamp, referrer. Your agent can pull analytics data and adjust campaigns without opening a dashboard."
+      />
+      <FeatureCard
+        title="Real-time webhooks"
+        description="Get notified the instant a QR code is scanned. HMAC-signed payloads, delivery logging. 1 webhook endpoint included free."
       />
       <FeatureCard
         title="Multi-tenant isolation"
