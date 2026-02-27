@@ -99,7 +99,7 @@ import TerminalWindow from "../components/TerminalWindow.astro";
     <SectionHeading title="MCP Setup" align="left" />
 
     <p class="mb-10 text-(--text-body) text-muted-foreground">
-      QR for Agent ships as a standalone MCP server on npm. One package, 6 tools, 3 dependencies.
+      QR for Agent ships as a standalone MCP server on npm. One package, 9 tools, 3 dependencies.
     </p>
 
     <!-- Claude Desktop -->
@@ -245,6 +245,41 @@ import TerminalWindow from "../components/TerminalWindow.astro";
       </table>
     </div>
 
+    <!-- Webhook Endpoints table -->
+    <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Webhook Endpoints</h3>
+    <div class="mb-10 overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-border text-left">
+            <th class="px-4 py-3 font-medium text-foreground">Method</th>
+            <th class="px-4 py-3 font-medium text-foreground">Path</th>
+            <th class="px-4 py-3 font-medium text-foreground">Description</th>
+            <th class="px-4 py-3 font-medium text-foreground">Auth</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green">POST</td>
+            <td class="px-4 py-3 font-mono text-code-green">/api/webhooks</td>
+            <td class="px-4 py-3 text-muted-foreground">Register a webhook endpoint</td>
+            <td class="px-4 py-3 text-muted-foreground">Yes</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green">GET</td>
+            <td class="px-4 py-3 font-mono text-code-green">/api/webhooks</td>
+            <td class="px-4 py-3 text-muted-foreground">List all webhooks</td>
+            <td class="px-4 py-3 text-muted-foreground">Yes</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green">DELETE</td>
+            <td class="px-4 py-3 font-mono text-code-green">/api/webhooks/:id</td>
+            <td class="px-4 py-3 text-muted-foreground">Delete a webhook</td>
+            <td class="px-4 py-3 text-muted-foreground">Yes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <!-- Public Endpoints table -->
     <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Public Endpoints</h3>
     <div class="mb-10 overflow-x-auto">
@@ -323,9 +358,74 @@ import TerminalWindow from "../components/TerminalWindow.astro";
               <td class="px-4 py-3 font-mono text-muted-foreground">"svg"</td>
               <td class="px-4 py-3 text-muted-foreground">Image format: <code class="font-mono text-code-green">"svg"</code> (recommended) or <code class="font-mono text-code-green">"png"</code>.</td>
             </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">foreground_color</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 font-mono text-muted-foreground">"#000000"</td>
+              <td class="px-4 py-3 text-muted-foreground">Hex color for QR code dots.</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">background_color</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 font-mono text-muted-foreground">"#ffffff"</td>
+              <td class="px-4 py-3 text-muted-foreground">Hex color for QR code background.</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">dot_style</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 font-mono text-muted-foreground">"square"</td>
+              <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">"square"</code>, <code class="font-mono text-code-green">"rounded"</code>, <code class="font-mono text-code-green">"dots"</code>, or <code class="font-mono text-code-green">"classy-rounded"</code>.</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">corner_style</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 font-mono text-muted-foreground">"square"</td>
+              <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">"square"</code>, <code class="font-mono text-code-green">"extra-rounded"</code>, or <code class="font-mono text-code-green">"dot"</code>.</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">logo_url</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 text-muted-foreground">--</td>
+              <td class="px-4 py-3 text-muted-foreground">URL to a logo image (PNG/JPG/SVG) or <code class="font-mono text-code-green">data:</code> URI. Centered on the QR code.</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">logo_size</td>
+              <td class="px-4 py-3 text-muted-foreground">number</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 font-mono text-muted-foreground">0.2</td>
+              <td class="px-4 py-3 text-muted-foreground">Logo size as ratio of QR width (0.15-0.3).</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">width</td>
+              <td class="px-4 py-3 text-muted-foreground">integer</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 font-mono text-muted-foreground">400</td>
+              <td class="px-4 py-3 text-muted-foreground">QR code width in pixels (200-2000).</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">margin</td>
+              <td class="px-4 py-3 text-muted-foreground">integer</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 font-mono text-muted-foreground">2</td>
+              <td class="px-4 py-3 text-muted-foreground">Quiet zone margin in modules (0-10).</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">error_correction</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 font-mono text-muted-foreground">"M"</td>
+              <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">"L"</code> (7%), <code class="font-mono text-code-green">"M"</code> (15%), <code class="font-mono text-code-green">"Q"</code> (25%), <code class="font-mono text-code-green">"H"</code> (30%). Auto-set to H with logo.</td>
+            </tr>
           </tbody>
         </table>
       </div>
+
+      <p class="mb-4 font-medium text-foreground">Basic request:</p>
       <TerminalWindow title="Request">
         <pre><code><span class="text-code-green">$</span> curl -X POST https://api.qragentcore.com/api/qr \
   -H "Content-Type: application/json" \
@@ -334,6 +434,23 @@ import TerminalWindow from "../components/TerminalWindow.astro";
     "target_url": "https://conf.example.com/2026",
     "label": "Conference landing page",
     "format": "svg"
+  &#125;'</code></pre>
+      </TerminalWindow>
+
+      <p class="mt-6 mb-4 font-medium text-foreground">Styled request (colors, rounded dots, logo):</p>
+      <TerminalWindow title="Styled Request">
+        <pre><code><span class="text-code-green">$</span> curl -X POST https://api.qragentcore.com/api/qr \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '&#123;
+    "target_url": "https://conf.example.com/2026",
+    "label": "Branded QR",
+    "foreground_color": "#4F46E5",
+    "background_color": "#F9FAFB",
+    "dot_style": "rounded",
+    "corner_style": "extra-rounded",
+    "logo_url": "https://example.com/logo.png",
+    "logo_size": 0.25
   &#125;'</code></pre>
       </TerminalWindow>
       <p class="mt-6 mb-4 font-medium text-foreground">Response (201):</p>
@@ -439,6 +556,96 @@ import TerminalWindow from "../components/TerminalWindow.astro";
       </TerminalWindow>
     </div>
 
+    <!-- POST /api/webhooks -->
+    <div class="mb-12">
+      <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">POST /api/webhooks -- Register a webhook</h3>
+      <p class="mb-6 text-(--text-body) text-muted-foreground">
+        Register an endpoint to receive real-time POST notifications when your QR codes are scanned. Returns an HMAC-SHA256 secret for signature verification -- store it securely, it is only shown once.
+      </p>
+      <p class="mb-4 font-medium text-foreground">Request body:</p>
+      <div class="mb-6 overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border text-left">
+              <th class="px-4 py-3 font-medium text-foreground">Parameter</th>
+              <th class="px-4 py-3 font-medium text-foreground">Type</th>
+              <th class="px-4 py-3 font-medium text-foreground">Required</th>
+              <th class="px-4 py-3 font-medium text-foreground">Default</th>
+              <th class="px-4 py-3 font-medium text-foreground">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">url</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">Yes</td>
+              <td class="px-4 py-3 text-muted-foreground">--</td>
+              <td class="px-4 py-3 text-muted-foreground">The HTTP/HTTPS endpoint that will receive webhook events.</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">events</td>
+              <td class="px-4 py-3 text-muted-foreground">string[]</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 font-mono text-muted-foreground">["qr.scanned"]</td>
+              <td class="px-4 py-3 text-muted-foreground">Events to subscribe to. Currently supported: <code class="font-mono text-code-green">"qr.scanned"</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <TerminalWindow title="Request">
+        <pre><code><span class="text-code-green">$</span> curl -X POST https://api.qragentcore.com/api/webhooks \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '&#123;"url": "https://your-server.com/webhook"&#125;'</code></pre>
+      </TerminalWindow>
+      <p class="mt-6 mb-4 font-medium text-foreground">Response (201):</p>
+      <TerminalWindow title="Response">
+        <pre><code class="text-code-green">{`{
+  "id": 1,
+  "url": "https://your-server.com/webhook",
+  "secret": "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
+  "events": ["qr.scanned"],
+  "is_active": true,
+  "created_at": "2026-02-27T10:00:00.000Z"
+}`}</code></pre>
+      </TerminalWindow>
+
+      <p class="mt-8 mb-4 font-medium text-foreground">Webhook payload (sent to your endpoint):</p>
+      <TerminalWindow title="Webhook Event">
+        <pre><code class="text-code-green">{`{
+  "event": "qr.scanned",
+  "timestamp": "2026-02-27T14:32:00.000Z",
+  "data": {
+    "short_id": "wkQ5W-fm",
+    "target_url": "https://example.com",
+    "label": "My QR",
+    "scan": {
+      "user_agent": "Mozilla/5.0 ...",
+      "referer": null,
+      "ip": "203.0.113.42",
+      "scanned_at": "2026-02-27T14:32:00.000Z"
+    }
+  }
+}`}</code></pre>
+      </TerminalWindow>
+
+      <p class="mt-8 mb-4 font-medium text-foreground">Verifying signatures:</p>
+      <p class="mb-4 text-(--text-body) text-muted-foreground">
+        Every webhook request includes an <code class="font-mono text-code-green">X-Webhook-Signature</code> header containing an HMAC-SHA256 hex digest of the request body, signed with your webhook secret.
+      </p>
+      <TerminalWindow title="Signature verification (Node.js)">
+        <pre><code class="text-code-green">{`import crypto from "node:crypto";
+
+function verifySignature(body, signature, secret) {
+  const expected = crypto
+    .createHmac("sha256", secret)
+    .update(body)
+    .digest("hex");
+  return signature === expected;
+}`}</code></pre>
+      </TerminalWindow>
+    </div>
+
     <!-- Authentication -->
     <div>
       <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Authentication</h3>
@@ -458,48 +665,81 @@ import TerminalWindow from "../components/TerminalWindow.astro";
     <SectionHeading title="MCP Tools" align="left" />
 
     <p class="mb-10 text-(--text-body) text-muted-foreground">
-      6 tools. That's it. No context bloat, no "too many tools" problem. Each tool maps 1:1 to a REST endpoint.
+      9 tools. No context bloat, no "too many tools" problem. Each tool maps 1:1 to a REST endpoint.
     </p>
 
+    <!-- QR Code Tools -->
+    <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">QR Code Tools</h3>
     <div class="mb-10 overflow-x-auto">
       <table class="w-full text-sm">
         <thead>
           <tr class="border-b border-border text-left">
             <th class="px-4 py-3 font-medium text-foreground">Tool</th>
-            <th class="px-4 py-3 font-medium text-foreground">Parameters</th>
+            <th class="px-4 py-3 font-medium text-foreground">Key Parameters</th>
             <th class="px-4 py-3 font-medium text-foreground">Description</th>
           </tr>
         </thead>
         <tbody>
           <tr class="border-b border-border">
             <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">create_qr_code</td>
-            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">target_url</code> (string, required), <code class="font-mono text-code-green">label</code> (string, optional), <code class="font-mono text-code-green">format</code> ("svg" or "png", default "svg")</td>
-            <td class="px-4 py-3 text-muted-foreground">Create a new dynamic QR code. Returns the QR image and short URL.</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">target_url</code>, <code class="font-mono text-code-green">format</code>, <code class="font-mono text-code-green">dot_style</code>, <code class="font-mono text-code-green">corner_style</code>, <code class="font-mono text-code-green">foreground_color</code>, <code class="font-mono text-code-green">logo_url</code>, ...</td>
+            <td class="px-4 py-3 text-muted-foreground">Create a custom-styled dynamic QR code.</td>
           </tr>
           <tr class="border-b border-border">
             <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">get_qr_code</td>
-            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code> (string, required)</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code></td>
             <td class="px-4 py-3 text-muted-foreground">Retrieve details and metadata for an existing QR code.</td>
           </tr>
           <tr class="border-b border-border">
             <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">update_qr_destination</td>
-            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code> (string, required), <code class="font-mono text-code-green">target_url</code> (string, required), <code class="font-mono text-code-green">label</code> (string, optional)</td>
-            <td class="px-4 py-3 text-muted-foreground">Change where a QR code redirects without regenerating the image.</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code>, <code class="font-mono text-code-green">target_url</code>, <code class="font-mono text-code-green">label</code></td>
+            <td class="px-4 py-3 text-muted-foreground">Change redirect target without regenerating the image.</td>
           </tr>
           <tr class="border-b border-border">
             <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">list_qr_codes</td>
-            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">limit</code> (number, default 20), <code class="font-mono text-code-green">offset</code> (number, default 0)</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">limit</code>, <code class="font-mono text-code-green">offset</code></td>
             <td class="px-4 py-3 text-muted-foreground">List all QR codes with pagination.</td>
           </tr>
           <tr class="border-b border-border">
             <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">delete_qr_code</td>
-            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code> (string, required)</td>
-            <td class="px-4 py-3 text-muted-foreground">Permanently delete a QR code and its scan analytics.</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code></td>
+            <td class="px-4 py-3 text-muted-foreground">Delete a QR code and its scan analytics.</td>
           </tr>
           <tr class="border-b border-border">
             <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">get_qr_analytics</td>
-            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code> (string, required)</td>
-            <td class="px-4 py-3 text-muted-foreground">Get total scan count and recent scan events with timestamps.</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code></td>
+            <td class="px-4 py-3 text-muted-foreground">Get scan count and recent scan events.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Webhook Tools -->
+    <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Webhook Tools</h3>
+    <div class="mb-10 overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-border text-left">
+            <th class="px-4 py-3 font-medium text-foreground">Tool</th>
+            <th class="px-4 py-3 font-medium text-foreground">Key Parameters</th>
+            <th class="px-4 py-3 font-medium text-foreground">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">create_webhook</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">url</code>, <code class="font-mono text-code-green">events</code></td>
+            <td class="px-4 py-3 text-muted-foreground">Register an endpoint for real-time scan notifications (HMAC-signed).</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">list_webhooks</td>
+            <td class="px-4 py-3 text-muted-foreground">--</td>
+            <td class="px-4 py-3 text-muted-foreground">List all registered webhook endpoints.</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">delete_webhook</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">webhook_id</code></td>
+            <td class="px-4 py-3 text-muted-foreground">Remove a webhook endpoint.</td>
           </tr>
         </tbody>
       </table>
@@ -511,7 +751,7 @@ import TerminalWindow from "../components/TerminalWindow.astro";
     <div class="mb-8">
       <p class="mb-2 font-mono font-medium text-code-green">create_qr_code</p>
       <p class="text-(--text-body) text-muted-foreground">
-        Creates a new managed QR code. The QR code points to a short URL that redirects to your target URL. You can change the target URL later without regenerating the QR image. Returns the QR image data (SVG or PNG) and the short URL.
+        Creates a custom-styled QR code with full control over appearance: colors, dot shapes (square, rounded, dots, classy-rounded), corner shapes (square, extra-rounded, dot), and optional logo embedding. The QR code points to a short URL that redirects to your target. Change the target later without regenerating the image.
       </p>
     </div>
 
@@ -519,6 +759,13 @@ import TerminalWindow from "../components/TerminalWindow.astro";
       <p class="mb-2 font-mono font-medium text-code-green">update_qr_destination</p>
       <p class="text-(--text-body) text-muted-foreground">
         This is the key "dynamic link" feature: the QR image stays the same, but scanning it goes to the new URL. Use it to update campaigns, fix broken links, or A/B test landing pages.
+      </p>
+    </div>
+
+    <div class="mb-8">
+      <p class="mb-2 font-mono font-medium text-code-green">create_webhook</p>
+      <p class="text-(--text-body) text-muted-foreground">
+        Register a webhook endpoint to get real-time notifications when any of your QR codes is scanned. Each webhook delivery is signed with HMAC-SHA256 for verification. The secret is only returned at creation time.
       </p>
     </div>
 
