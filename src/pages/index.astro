@@ -14,7 +14,7 @@ const comparisonRows = [
   {
     feature: "MCP integration",
     traditional: "None (or via Zapier)",
-    product: "Native -- 6 dedicated tools",
+    product: "Native — 9 dedicated tools",
   },
   {
     feature: "Installation",
@@ -34,7 +34,7 @@ const comparisonRows = [
   {
     feature: "Context footprint",
     traditional: "27+ tools, 60K tokens burned",
-    product: "6 tools, 5 kB total",
+    product: "9 tools, 5 kB total",
   },
   {
     feature: "Source code",
@@ -82,18 +82,21 @@ const comparisonRows = [
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
       <TerminalWindow title="Prompt">
-        <pre><code>Create a dynamic QR code for our event page at
-https://conf.example.com/2026 and give me the scan tracking URL.</code></pre>
+        <pre><code>Create a branded QR code for our event page at
+https://conf.example.com/2026 with rounded dots,
+our logo, and indigo color scheme.</code></pre>
       </TerminalWindow>
 
       <TerminalWindow title="Agent response">
         <pre><code class="text-code-green">{`{
-  "id": "qr_8x7k2m",
-  "type": "dynamic",
+  "short_id": "8x7k2m9p",
   "target_url": "https://conf.example.com/2026",
-  "qr_code_url": "https://api.qragentcore.com/qr/qr_8x7k2m.png",
-  "scan_tracking": "https://api.qragentcore.com/qr/qr_8x7k2m/scans",
-  "created_at": "2026-02-24T10:30:00Z"
+  "qr_image_url": "https://qrforagent.com/i/8x7k2m9p",
+  "style": {
+    "dot_style": "rounded",
+    "foreground_color": "#4F46E5",
+    "logo_url": "https://conf.example.com/logo.png"
+  }
 }`}</code></pre>
       </TerminalWindow>
     </div>
@@ -146,7 +149,7 @@ https://conf.example.com/2026 and give me the scan tracking URL.</code></pre>
       <StepCard
         number={3}
         title="Create"
-        description="Your agent now has 6 QR code tools. Ask it to create, read, update, list, delete, or track scans on dynamic QR codes -- in plain language."
+        description="Your agent now has 9 tools. Create styled QR codes, track scans, manage webhooks -- all in plain language."
       />
     </div>
 
@@ -165,12 +168,12 @@ https://conf.example.com/2026 and give me the scan tracking URL.</code></pre>
     <!-- 6 MCP Tools list -->
     <div class="mb-10">
       <p class="mb-4 text-(--text-body) font-medium text-foreground">
-        Your agent gets exactly 6 tools -- no more, no less:
+        9 tools. Lean by design:
       </p>
       <ul class="space-y-2 text-(--text-body) text-muted-foreground">
         <li>
           <code class="font-mono text-code-green">create_qr_code</code>
-          <span class="text-muted-foreground"> -- Generate a dynamic QR code with a target URL</span>
+          <span class="text-muted-foreground"> -- Generate a styled dynamic QR code with colors, shapes, and logo</span>
         </li>
         <li>
           <code class="font-mono text-code-green">get_qr_code</code>
@@ -192,12 +195,24 @@ https://conf.example.com/2026 and give me the scan tracking URL.</code></pre>
           <code class="font-mono text-code-green">get_qr_analytics</code>
           <span class="text-muted-foreground"> -- Get scan count, timestamps, and referrer data</span>
         </li>
+        <li>
+          <code class="font-mono text-code-green">create_webhook</code>
+          <span class="text-muted-foreground"> -- Get notified in real time when a QR code is scanned</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">list_webhooks</code>
+          <span class="text-muted-foreground"> -- List all registered webhook endpoints</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">delete_webhook</code>
+          <span class="text-muted-foreground"> -- Remove a webhook endpoint</span>
+        </li>
       </ul>
     </div>
 
     <!-- Highlight line -->
     <p class="mb-10 rounded-(--radius-md) border border-border bg-code-bg px-6 py-4 text-center font-mono text-(--text-body) font-medium text-foreground">
-      6 tools. 3 dependencies. 5 kB package. Your context window stays clean.
+      9 tools. 3 dependencies. 5 kB package. Your context window stays clean.
     </p>
 
     <!-- Feature cards grid -->
@@ -207,8 +222,16 @@ https://conf.example.com/2026 and give me the scan tracking URL.</code></pre>
         description="Update where a QR code points after it's printed. No new image needed. Your agent handles it with a single prompt."
       />
       <FeatureCard
+        title="Custom Styled QR Codes"
+        description="Colors, dot shapes, corner styles, logo embedding -- your agent creates on-brand QR codes in one prompt. No design tool needed."
+      />
+      <FeatureCard
         title="Scan Analytics"
         description="Track every scan: count, timestamp, referrer. Your agent can pull analytics and adjust campaigns in real time."
+      />
+      <FeatureCard
+        title="Real-Time Webhooks"
+        description="Get notified the instant a QR code is scanned. HMAC-signed payloads, delivery logging, fire-and-forget -- your agent sets it up in one command."
       />
       <FeatureCard
         title="Multi-Tenant Isolation"
@@ -220,7 +243,7 @@ https://conf.example.com/2026 and give me the scan tracking URL.</code></pre>
       />
       <FeatureCard
         title="Lightweight by Design"
-        description={`The "too many tools" problem is real -- "context windows filling up with tool definitions, loading 50 tools meant burning 100K+ tokens before the conversation started." QR for Agent ships 6 tools at 5 kB. Your agent keeps its focus.`}
+        description={`The "too many tools" problem is real -- "context windows filling up with tool definitions, loading 50 tools meant burning 100K+ tokens before the conversation started." QR for Agent ships 9 tools at 5 kB. Your agent keeps its focus.`}
       />
     </div>
 
