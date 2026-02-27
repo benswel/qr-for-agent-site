@@ -8,6 +8,7 @@ import CTASection from "../components/CTASection.astro";
 import FeatureCard from "../components/FeatureCard.astro";
 import ComparisonTable from "../components/ComparisonTable.astro";
 import FAQ from "../components/FAQ.tsx";
+import WaitlistForm from "../components/WaitlistForm.tsx";
 
 const comparisonRows = [
   {
@@ -220,7 +221,7 @@ const faqItems = [
         </p>
 
         <div class="mt-6">
-          <CTAButton href="/get-started" text="Join the Waitlist" variant="outline" class="w-full justify-center" />
+          <WaitlistForm client:visible />
         </div>
       </div>
     </div>
