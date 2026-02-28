@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Section from "../../components/Section.astro";
+import CTAButton from "../../components/CTAButton.astro";
+---
+
+<BaseLayout
+  title="Checkout Canceled — QR for Agent"
+  description="No worries -- nothing was charged. Your free plan is still active."
+>
+  <Section background="default" padding="large">
+    <div class="flex flex-col items-center text-center">
+      <h1 class="max-w-4xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-(--text-h1)">
+        Checkout canceled
+      </h1>
+      <p class="mt-6 max-w-2xl text-(--text-body-lg) text-muted-foreground">
+        No worries -- nothing was charged. Your free plan is still active with 10 QR codes, 1,000 scans/month, and full API access.
+      </p>
+      <p class="mt-4 max-w-2xl text-(--text-body) text-muted-foreground">
+        You can upgrade to Pro anytime from the pricing page or by using the <code class="font-mono text-code-green">upgrade_to_pro</code> tool in your AI agent.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <CTAButton href="/pricing" text="View Pricing" variant="primary" size="lg" />
+        <CTAButton href="/docs" text="Read the Docs" variant="outline" size="lg" />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

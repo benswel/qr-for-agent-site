@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Section from "../../components/Section.astro";
+import CTAButton from "../../components/CTAButton.astro";
+---
+
+<BaseLayout
+  title="Welcome to Pro — QR for Agent"
+  description="Your Pro upgrade is complete. Unlimited QR codes, scans, and webhooks."
+>
+  <Section background="default" padding="large">
+    <div class="flex flex-col items-center text-center">
+      <span class="mb-6 text-5xl">&#10003;</span>
+      <h1 class="max-w-4xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-(--text-h1)">
+        Welcome to Pro
+      </h1>
+      <p class="mt-6 max-w-2xl text-(--text-body-lg) text-muted-foreground">
+        Your upgrade is complete. You now have unlimited QR codes, unlimited scans, and unlimited webhooks.
+      </p>
+      <p class="mt-4 max-w-2xl text-(--text-body) text-muted-foreground">
+        Your existing API key is already upgraded -- no configuration changes needed. Start using your new limits right away.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <CTAButton href="/docs" text="Read the Docs" variant="primary" size="lg" />
+        <CTAButton href="/pricing" text="View your plan" variant="outline" size="lg" />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
