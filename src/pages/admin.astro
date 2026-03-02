@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import AdminDashboard from "../components/AdminDashboard.tsx";
+---
+
+<BaseLayout
+  title="Admin — QR for Agent"
+  description="Admin dashboard for QR for Agent."
+>
+  <Section>
+    <div class="mx-auto max-w-5xl px-6 pt-24 pb-16">
+      <h1 class="mb-8 text-center font-heading text-h3 font-semibold tracking-tight">
+        Admin Dashboard
+      </h1>
+      <AdminDashboard client:load />
+    </div>
+  </Section>
+</BaseLayout>
