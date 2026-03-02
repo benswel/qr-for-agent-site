@@ -14,7 +14,7 @@ const comparisonRows = [
   {
     feature: "MCP integration",
     traditional: "None (or via Zapier)",
-    product: "Native — 20 dedicated tools",
+    product: "Native — 30 dedicated tools",
   },
   {
     feature: "Installation",
@@ -34,7 +34,7 @@ const comparisonRows = [
   {
     feature: "Context footprint",
     traditional: "27+ tools, 60K tokens burned",
-    product: "20 tools, 5 kB total",
+    product: "30 tools, 5 kB total",
   },
   {
     feature: "Source code",
@@ -149,7 +149,7 @@ our logo, and indigo color scheme.</code></pre>
       <StepCard
         number={3}
         title="Create"
-        description="Your agent now has 20 tools. Create styled QR codes, track scans, manage webhooks -- all in plain language."
+        description="Your agent now has 30 tools. Create styled QR codes, track scans, manage webhooks -- all in plain language."
       />
     </div>
 
@@ -168,7 +168,7 @@ our logo, and indigo color scheme.</code></pre>
     <!-- 6 MCP Tools list -->
     <div class="mb-10">
       <p class="mb-4 text-(--text-body) font-medium text-foreground">
-        20 tools. Lean by design:
+        30 tools. Lean by design:
       </p>
       <ul class="space-y-2 text-(--text-body) text-muted-foreground">
         <li>
@@ -212,12 +212,52 @@ our logo, and indigo color scheme.</code></pre>
           <span class="text-muted-foreground"> -- Create a WiFi network QR code</span>
         </li>
         <li>
+          <code class="font-mono text-code-green">create_email_qr</code>
+          <span class="text-muted-foreground"> -- Create a pre-filled email QR code</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">create_sms_qr</code>
+          <span class="text-muted-foreground"> -- Create a pre-filled SMS QR code</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">create_phone_qr</code>
+          <span class="text-muted-foreground"> -- Create a phone call QR code</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">create_event_qr</code>
+          <span class="text-muted-foreground"> -- Create a calendar event QR code</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">create_text_qr</code>
+          <span class="text-muted-foreground"> -- Create a plain text QR code</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">create_location_qr</code>
+          <span class="text-muted-foreground"> -- Create a map location QR code</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">create_social_qr</code>
+          <span class="text-muted-foreground"> -- Create a social media links QR code</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">create_app_store_qr</code>
+          <span class="text-muted-foreground"> -- Create a smart app store redirect QR code</span>
+        </li>
+        <li>
           <code class="font-mono text-code-green">update_vcard_qr</code>
           <span class="text-muted-foreground"> -- Update vCard QR code contact data</span>
         </li>
         <li>
           <code class="font-mono text-code-green">update_wifi_qr</code>
           <span class="text-muted-foreground"> -- Update WiFi QR code credentials</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">update_social_qr</code>
+          <span class="text-muted-foreground"> -- Update social media links</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">update_app_store_qr</code>
+          <span class="text-muted-foreground"> -- Update app store URLs</span>
         </li>
         <li>
           <code class="font-mono text-code-green">get_qr_analytics</code>
@@ -256,7 +296,7 @@ our logo, and indigo color scheme.</code></pre>
 
     <!-- Highlight line -->
     <p class="mb-10 rounded-(--radius-md) border border-border bg-code-bg px-6 py-4 text-center font-mono text-(--text-body) font-medium text-foreground">
-      20 tools. 3 dependencies. ~5 kB package. Your context window stays clean.
+      30 tools. 3 dependencies. ~5 kB package. Your context window stays clean.
     </p>
 
     <!-- Feature cards grid -->
@@ -274,8 +314,8 @@ our logo, and indigo color scheme.</code></pre>
         description="Create, update, or delete up to 50 QR codes in a single API call. Your agent handles campaign launches and mass updates without rate limit headaches."
       />
       <FeatureCard
-        title="QR Types: vCard & WiFi"
-        description="Not just URLs -- create contact card and WiFi QR codes that phones recognize natively. Your agent generates vCards with name, email, phone, and WiFi configs with SSID, password, encryption type."
+        title="11 QR Code Types"
+        description="Not just URLs -- create URL, vCard, WiFi, Email, SMS, Phone, Event/Calendar, Text, Location, Social Media, and App Store QR codes. Your agent generates QR codes for any use case, with native mobile phone recognition."
       />
       <FeatureCard
         title="Expiration & Scheduling"
@@ -299,7 +339,7 @@ our logo, and indigo color scheme.</code></pre>
       />
       <FeatureCard
         title="Lightweight by Design"
-        description={`The "too many tools" problem is real -- "context windows filling up with tool definitions, loading 50 tools meant burning 100K+ tokens before the conversation started." QR for Agent ships 20 tools at 5 kB. Your agent keeps its focus.`}
+        description={`The "too many tools" problem is real -- "context windows filling up with tool definitions, loading 50 tools meant burning 100K+ tokens before the conversation started." QR for Agent ships 30 tools at 5 kB. Your agent keeps its focus.`}
       />
     </div>
 
