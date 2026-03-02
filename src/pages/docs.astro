@@ -480,6 +480,27 @@ import TerminalWindow from "../components/TerminalWindow.astro";
               <td class="px-4 py-3 font-mono text-muted-foreground">"M"</td>
               <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">"L"</code> (7%), <code class="font-mono text-code-green">"M"</code> (15%), <code class="font-mono text-code-green">"Q"</code> (25%), <code class="font-mono text-code-green">"H"</code> (30%). Auto-set to H with logo.</td>
             </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">expires_at</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 text-muted-foreground">--</td>
+              <td class="px-4 py-3 text-muted-foreground">ISO 8601 date-time. After this date, scanning returns 410 Gone instead of redirecting.</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">scheduled_url</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 text-muted-foreground">--</td>
+              <td class="px-4 py-3 text-muted-foreground">Replacement URL that activates at <code class="font-mono text-code-green">scheduled_at</code>.</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">scheduled_at</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 text-muted-foreground">--</td>
+              <td class="px-4 py-3 text-muted-foreground">ISO 8601 date-time. When reached, target automatically switches to <code class="font-mono text-code-green">scheduled_url</code>.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -539,6 +560,45 @@ import TerminalWindow from "../components/TerminalWindow.astro";
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '&#123;"target_url": "https://new-destination.com"&#125;'</code></pre>
       </TerminalWindow>
+    </div>
+
+    <!-- Expiration & Scheduling -->
+    <div class="mb-12">
+      <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Expiration & Scheduled URL Swap</h3>
+      <p class="mb-6 text-(--text-body) text-muted-foreground">
+        Set an expiration date to automatically disable a QR code, or schedule a URL swap to change where it points at a future date. Both are checked at scan time -- no cron jobs needed.
+      </p>
+
+      <p class="mb-4 font-medium text-foreground">Create a QR code that expires:</p>
+      <TerminalWindow title="Expiring QR">
+        <pre><code><span class="text-code-green">$</span> curl -X POST https://api.qragentcore.com/api/qr \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '&#123;
+    "target_url": "https://example.com/flash-sale",
+    "label": "Flash sale - 48h only",
+    "expires_at": "2026-04-01T00:00:00.000Z"
+  &#125;'</code></pre>
+      </TerminalWindow>
+      <p class="mt-3 mb-6 text-sm text-muted-foreground">
+        After <code class="font-mono text-code-green">expires_at</code>, scanning returns <code class="font-mono text-code-green">410 Gone</code> with a <code class="font-mono text-code-green">QR_EXPIRED</code> code. Remove the expiration anytime via PATCH (<code class="font-mono text-code-green">expires_at: null</code>).
+      </p>
+
+      <p class="mb-4 font-medium text-foreground">Schedule a URL swap:</p>
+      <TerminalWindow title="Scheduled Swap">
+        <pre><code><span class="text-code-green">$</span> curl -X POST https://api.qragentcore.com/api/qr \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '&#123;
+    "target_url": "https://example.com/pre-launch",
+    "scheduled_url": "https://example.com/product-page",
+    "scheduled_at": "2026-04-15T09:00:00.000Z",
+    "label": "Product launch QR"
+  &#125;'</code></pre>
+      </TerminalWindow>
+      <p class="mt-3 text-sm text-muted-foreground">
+        Before the date, scans go to <code class="font-mono text-code-green">target_url</code>. After the date, the first scan triggers the swap -- <code class="font-mono text-code-green">target_url</code> becomes <code class="font-mono text-code-green">scheduled_url</code> permanently. Cancel anytime via PATCH (<code class="font-mono text-code-green">scheduled_url: null, scheduled_at: null</code>).
+      </p>
     </div>
 
     <!-- GET /api/qr -->
