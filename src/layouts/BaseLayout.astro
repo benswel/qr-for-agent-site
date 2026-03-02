@@ -48,18 +48,42 @@ const ogImage = new URL("/og.png", siteUrl).href;
     <!-- Schema.org -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "QR for Agent",
-      "description": "The first QR code MCP server built for AI agents. Create, update, and track dynamic QR codes.",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "url": siteUrl,
-      "license": "https://opensource.org/licenses/MIT"
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "QR for Agent",
+          "description": "The first QR code MCP server built for AI agents. Create, update, and track dynamic QR codes via MCP or REST API. 37 tools. Open source.",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Any",
+          "offers": {
+            "@type": "AggregateOffer",
+            "lowPrice": "0",
+            "highPrice": "19",
+            "priceCurrency": "USD",
+            "offerCount": 2
+          },
+          "url": siteUrl,
+          "codeRepository": "https://github.com/benswel/qr-agent-core",
+          "license": "https://opensource.org/licenses/MIT",
+          "author": { "@type": "Organization", "name": "QR for Agent" },
+          "featureList": "Dynamic QR codes, REST API, MCP server (37 tools), Custom styling, Scan analytics, Webhooks, Conversion tracking, 11 QR code types, Conditional redirects, Bulk operations, CSV upload, Custom domains"
+        },
+        {
+          "@type": "Organization",
+          "name": "QR for Agent",
+          "url": siteUrl,
+          "logo": ogImage,
+          "sameAs": [
+            "https://github.com/benswel/qr-agent-core",
+            "https://www.npmjs.com/package/qr-for-agent"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "name": "QR for Agent",
+          "url": siteUrl
+        }
+      ]
     })} />
   </head>
   <body>

@@ -1,0 +1,59 @@
+# QR for Agent
+
+> The first QR code API and MCP server built for AI agents. Create, update, and track dynamic QR codes via natural language or REST API. 37 MCP tools. Open source. MIT license.
+
+## Key Facts
+
+- Free tier: 10 dynamic QR codes, 1,000 scans/month, full API + MCP access, no credit card
+- Pro plan: $19/month, unlimited QR codes, scans, webhooks, custom domain, CSV bulk upload
+- 37 MCP tools via `npx qr-for-agent`
+- 11 QR code types: URL, vCard, WiFi, Email, SMS, Phone, Event, Text, Location, Social, App Store
+- Custom QR styling: colors, dot shapes, corner styles, logo embedding, gradients, frames
+- Scan analytics: device, browser, OS, country, city, daily trends
+- Conversion tracking: zero-JS tracking pixel + authenticated API
+- Conditional redirects: route by device, OS, country, language, time, A/B split
+- UTM tracking and GTM container support
+- Real-time webhooks with HMAC-SHA256 signatures
+- Self-hostable (Docker, MIT license)
+- API base URL: https://api.qragentcore.com
+
+## Links
+
+- [Homepage](https://qrforagent.com)
+- [API Documentation](https://qrforagent.com/docs)
+- [Pricing](https://qrforagent.com/pricing)
+- [Changelog](https://qrforagent.com/changelog)
+- [Get Started](https://qrforagent.com/get-started)
+- [GitHub Repository](https://github.com/benswel/qr-agent-core)
+- [npm Package](https://www.npmjs.com/package/qr-for-agent)
+- [Full Documentation for LLMs](https://qrforagent.com/llms-full.txt)
+
+## MCP Installation
+
+```json
+{
+  "mcpServers": {
+    "qr-for-agent": {
+      "command": "npx",
+      "args": ["-y", "qr-for-agent"],
+      "env": { "QR_API_KEY": "qr_YOUR_KEY" }
+    }
+  }
+}
+```
+
+## Quick Start
+
+1. Register: `POST https://api.qragentcore.com/api/register` with `{ "email": "you@example.com" }`
+2. Get your API key from the response
+3. Create a QR code: `POST /api/qr` with `{ "target_url": "https://example.com" }` and header `X-API-Key: qr_YOUR_KEY`
+4. Or install the MCP server and ask your AI agent: "Create a QR code for https://example.com"
+
+## Why QR for Agent
+
+- Only QR code service with native MCP integration (37 tools)
+- API-first: no dashboard required, no "upgrade to unlock API access"
+- QR codes never silently deactivated (unlike competitors who deactivate after free trial)
+- Conversion tracking included free (zero-JS pixel + API)
+- Open source: MIT license, self-hostable, no vendor lock-in
+- Competitors charge $29-49/month for API access alone; QR for Agent includes it free

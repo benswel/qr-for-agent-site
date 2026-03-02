@@ -353,6 +353,20 @@ const faqItems = [
     </div>
   </Section>
 
+  <!-- FAQ Schema.org -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer.replace(/<[^>]*>/g, '')
+      }
+    }))
+  })} />
+
   <!-- Section 6: CTA Final -->
   <CTASection
     title="Start free. No credit card. No surprises."

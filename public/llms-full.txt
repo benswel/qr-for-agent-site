@@ -1,0 +1,497 @@
+# QR for Agent — Complete Documentation
+
+> The first QR code API and MCP server built for AI agents. Create, update, and track dynamic QR codes via natural language or REST API. 37 MCP tools. Open source. MIT license.
+
+---
+
+## Product Overview
+
+QR for Agent is a QR-as-a-Service platform designed specifically for AI agents and developers. It provides:
+
+- A REST API for creating, updating, and tracking dynamic QR codes
+- An MCP (Model Context Protocol) server with 37 tools that lets AI agents manage QR codes in natural language
+- 11 QR code types (URL, vCard, WiFi, Email, SMS, Phone, Event, Text, Location, Social, App Store)
+- Custom QR styling (colors, dot shapes, corner styles, logo embedding, gradients, frames with CTA text)
+- Scan analytics with device, browser, OS, country, and city breakdowns
+- Conversion tracking via zero-JS tracking pixel and authenticated API
+- Conditional redirects by device, OS, country, language, time of day, or A/B split
+- UTM parameter tracking and Google Tag Manager container support
+- Real-time webhooks with HMAC-SHA256 signature verification
+- Multi-tenant API key isolation (built for agencies serving multiple clients)
+
+The project is MIT-licensed and fully open source. Self-hosting is supported via Docker.
+
+**Website:** https://qrforagent.com
+**GitHub:** https://github.com/benswel/qr-agent-core
+**npm:** https://www.npmjs.com/package/qr-for-agent
+**API Base URL:** https://api.qragentcore.com
+
+---
+
+## Quick Start
+
+### Step 1: Get an API Key
+
+```bash
+curl -X POST https://api.qragentcore.com/api/register \
+  -H "Content-Type: application/json" \
+  -d '{"email": "you@example.com", "label": "My App"}'
+```
+
+Response:
+```json
+{
+  "api_key": "qr_abc123...",
+  "message": "API key created. Store it securely — it cannot be retrieved later."
+}
+```
+
+### Step 2: Install the MCP Server (optional)
+
+Add to your Claude Desktop or Cursor MCP config:
+
+```json
+{
+  "mcpServers": {
+    "qr-for-agent": {
+      "command": "npx",
+      "args": ["-y", "qr-for-agent"],
+      "env": {
+        "QR_API_KEY": "qr_YOUR_KEY"
+      }
+    }
+  }
+}
+```
+
+Then ask your AI agent: "Create a QR code for https://example.com"
+
+### Step 3: Create Your First QR Code (via API)
+
+```bash
+curl -X POST https://api.qragentcore.com/api/qr \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{"target_url": "https://example.com", "label": "My First QR"}'
+```
+
+Response:
+```json
+{
+  "id": 1,
+  "short_id": "wkQ5W-fm",
+  "short_url": "https://api.qragentcore.com/r/wkQ5W-fm",
+  "target_url": "https://example.com",
+  "label": "My First QR",
+  "qr_code_svg": "<svg>...</svg>",
+  "scan_count": 0,
+  "created_at": "2026-02-27T10:00:00.000Z"
+}
+```
+
+---
+
+## Authentication
+
+All `/api/*` endpoints require an `X-API-Key` header.
+
+- **Format:** `qr_` + 32-character random string
+- **Multi-tenant:** each API key only sees its own QR codes
+- **Isolation:** no data leaks between API keys
+
+---
+
+## REST API Reference
+
+### POST /api/qr — Create a QR code
+
+Creates a dynamic QR code pointing to a short URL that redirects to your target.
+
+**Request body:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| target_url | string | Yes (for URL type) | The URL the QR code redirects to |
+| label | string | No | Human-readable label |
+| format | "svg" or "png" | No (default: svg) | Output format |
+| type | string | No (default: url) | QR code type: url, vcard, wifi, email, sms, phone, event, text, location, social, app_store |
+| type_data | object | Depends on type | Type-specific data (e.g., vCard fields, WiFi credentials) |
+| foreground_color | string | No | Hex color for QR dots (e.g., "#000000") |
+| background_color | string | No | Hex color for background (e.g., "#FFFFFF") |
+| dot_style | string | No | Dot shape: square, rounded, dots, classy-rounded |
+| corner_style | string | No | Corner shape: square, extra-rounded, dot |
+| logo_url | string | No | URL of logo image to embed in center |
+| gradient_type | string | No | "linear" or "radial" |
+| gradient_colors | string[] | No | Array of hex colors for gradient |
+| gradient_angle | number | No | Angle in degrees (for linear gradient) |
+| frame_style | string | No | Frame type: none, banner_bottom, banner_top, rounded |
+| frame_text | string | No | CTA text on frame (max 30 characters) |
+| frame_color | string | No | Hex color for frame background |
+| frame_text_color | string | No | Hex color for frame text |
+| expires_at | string | No | ISO date — QR returns 410 Gone after this date |
+| scheduled_url | string | No | URL to switch to at scheduled_at |
+| scheduled_at | string | No | ISO date — URL swap activation time |
+
+**Example: Custom styled QR code**
+```bash
+curl -X POST https://api.qragentcore.com/api/qr \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{
+    "target_url": "https://example.com",
+    "label": "Styled QR",
+    "foreground_color": "#1a1a2e",
+    "background_color": "#ffffff",
+    "dot_style": "rounded",
+    "corner_style": "extra-rounded",
+    "frame_style": "banner_bottom",
+    "frame_text": "Scan Me!"
+  }'
+```
+
+**Example: vCard QR code**
+```bash
+curl -X POST https://api.qragentcore.com/api/qr \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{
+    "type": "vcard",
+    "type_data": {
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "organization": "Acme Inc"
+    }
+  }'
+```
+
+**Example: WiFi QR code**
+```bash
+curl -X POST https://api.qragentcore.com/api/qr \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{
+    "type": "wifi",
+    "type_data": {
+      "ssid": "Office-5G",
+      "password": "s3cur3p4ss",
+      "encryption": "WPA2"
+    }
+  }'
+```
+
+### PATCH /api/qr/:shortId — Update a QR code
+
+Update the target URL, label, or style of an existing QR code. The QR image stays the same.
+
+```bash
+curl -X PATCH https://api.qragentcore.com/api/qr/wkQ5W-fm \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{"target_url": "https://new-destination.com"}'
+```
+
+### GET /api/qr — List QR codes
+
+```bash
+curl https://api.qragentcore.com/api/qr?limit=10&offset=0 \
+  -H "X-API-Key: qr_YOUR_KEY"
+```
+
+### DELETE /api/qr/:shortId — Delete a QR code
+
+```bash
+curl -X DELETE https://api.qragentcore.com/api/qr/wkQ5W-fm \
+  -H "X-API-Key: qr_YOUR_KEY"
+```
+
+### GET /api/analytics/:shortId — Enriched scan analytics
+
+Returns breakdowns by device, browser, OS, country, referer, and daily trends.
+
+```bash
+curl https://api.qragentcore.com/api/analytics/wkQ5W-fm?period=30d \
+  -H "X-API-Key: qr_YOUR_KEY"
+```
+
+Response includes:
+- `total_scans` — total scan count
+- `scans_by_day` — daily scan counts
+- `top_devices` — mobile, desktop, tablet breakdown
+- `top_browsers` — Chrome, Safari, Firefox, etc.
+- `top_countries` — country-level breakdown
+- `top_referers` — referring URLs
+- `conversions` — conversion summary (total, total_value, top_events)
+
+### PATCH /api/qr/:shortId/utm — Set UTM parameters
+
+```bash
+curl -X PATCH https://api.qragentcore.com/api/qr/wkQ5W-fm/utm \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{
+    "utm_source": "flyer",
+    "utm_medium": "print",
+    "utm_campaign": "spring-2026"
+  }'
+```
+
+### PATCH /api/qr/:shortId/redirect-rules — Set conditional redirects
+
+```bash
+curl -X PATCH https://api.qragentcore.com/api/qr/wkQ5W-fm/redirect-rules \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{
+    "rules": [
+      {
+        "conditions": [{ "type": "device", "value": "mobile" }],
+        "target_url": "https://m.example.com"
+      },
+      {
+        "conditions": [{ "type": "country", "value": "FR" }],
+        "target_url": "https://example.fr"
+      }
+    ]
+  }'
+```
+
+Condition types: `device`, `os`, `country`, `language`, `time`, `ab_split`.
+
+### POST /api/qr/bulk — Bulk create (up to 50)
+
+```bash
+curl -X POST https://api.qragentcore.com/api/qr/bulk \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{
+    "items": [
+      { "target_url": "https://example.com/1", "label": "QR 1" },
+      { "target_url": "https://example.com/2", "label": "QR 2" }
+    ]
+  }'
+```
+
+### POST /api/qr/bulk/csv — Bulk create from CSV (up to 500, Pro only)
+
+```bash
+curl -X POST https://api.qragentcore.com/api/qr/bulk/csv \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{
+    "csv_content": "target_url,label\nhttps://example.com/1,QR 1\nhttps://example.com/2,QR 2"
+  }'
+```
+
+CSV columns: `target_url` (required), `label`, `format`, `type`, `foreground_color`, `background_color`, `dot_style`, `corner_style`, `frame_style`, `frame_text`, `expires_at`.
+
+### POST /api/webhooks — Register a webhook
+
+```bash
+curl -X POST https://api.qragentcore.com/api/webhooks \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{"url": "https://your-server.com/webhook", "events": ["qr.scanned", "qr.conversion"]}'
+```
+
+Events: `qr.scanned` (fired on each scan), `qr.conversion` (fired on each conversion event).
+
+Each delivery is signed with HMAC-SHA256. The `secret` is returned once at creation time.
+
+### GET /t/:shortId — Tracking pixel (conversion)
+
+Zero-JavaScript conversion tracking. Embed as an invisible image on your thank-you page.
+
+```html
+<img src="https://api.qragentcore.com/t/wkQ5W-fm?event=purchase&value=49.99" width="1" height="1" alt="" />
+```
+
+Returns a 1x1 transparent GIF. No authentication required.
+
+### POST /api/conversions — Record a conversion (authenticated)
+
+```bash
+curl -X POST https://api.qragentcore.com/api/conversions \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{"short_id": "wkQ5W-fm", "event": "purchase", "value": 49.99}'
+```
+
+### GET /api/conversions/:shortId — Conversion stats
+
+```bash
+curl https://api.qragentcore.com/api/conversions/wkQ5W-fm?period=30d \
+  -H "X-API-Key: qr_YOUR_KEY"
+```
+
+Response includes `total_conversions`, `total_value`, `by_event`, `by_day`, `recent_events`.
+
+### PUT /api/domain — Set custom domain (Pro only)
+
+```bash
+curl -X PUT https://api.qragentcore.com/api/domain \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '{"domain": "qr.yourbrand.com"}'
+```
+
+### GET /api/usage — Get current usage and quota
+
+```bash
+curl https://api.qragentcore.com/api/usage \
+  -H "X-API-Key: qr_YOUR_KEY"
+```
+
+---
+
+## MCP Tools (37 total)
+
+### QR Code Tools (23 tools)
+
+| Tool | Description |
+|------|-------------|
+| create_qr_code | Create a custom-styled dynamic QR code (URL type) |
+| create_vcard_qr | Create a vCard QR code (contact card) |
+| create_wifi_qr | Create a WiFi QR code (network credentials) |
+| create_email_qr | Create an email QR code (mailto: link) |
+| create_sms_qr | Create an SMS QR code |
+| create_phone_qr | Create a phone call QR code |
+| create_event_qr | Create a calendar event QR code (iCalendar) |
+| create_text_qr | Create a plain text QR code |
+| create_location_qr | Create a location QR code (opens maps) |
+| create_social_qr | Create a social media QR code (multi-platform) |
+| create_app_store_qr | Create an app store QR code (smart iOS/Android redirect) |
+| update_qr_destination | Change where an existing QR code points to |
+| update_vcard_qr | Update a vCard QR code |
+| update_wifi_qr | Update a WiFi QR code |
+| delete_qr_code | Delete a QR code |
+| list_qr_codes | List all QR codes with pagination |
+| get_qr_analytics | Get enriched scan analytics for a QR code |
+| bulk_create_qr_codes | Create up to 50 QR codes in one request |
+| bulk_update_qr_codes | Update up to 50 QR codes in one request |
+| bulk_delete_qr_codes | Delete up to 50 QR codes in one request |
+| bulk_create_from_csv | Create up to 500 QR codes from CSV data (Pro only) |
+| set_utm_params | Set UTM tracking parameters on a QR code |
+| set_redirect_rules | Set conditional redirect rules (device, OS, country, etc.) |
+
+### Webhook Tools (3 tools)
+
+| Tool | Description |
+|------|-------------|
+| create_webhook | Register a webhook endpoint for real-time notifications |
+| list_webhooks | List all registered webhook endpoints |
+| delete_webhook | Remove a webhook endpoint |
+
+### Conversion Tools (2 tools)
+
+| Tool | Description |
+|------|-------------|
+| record_conversion | Record a conversion event for a QR code |
+| get_conversions | Get conversion stats for a QR code |
+
+### Domain Tools (2 tools)
+
+| Tool | Description |
+|------|-------------|
+| set_custom_domain | Set a custom domain for branded short URLs (Pro only) |
+| get_custom_domain | Get current custom domain and DNS status |
+
+### Account & Billing Tools (4 tools)
+
+| Tool | Description |
+|------|-------------|
+| register | Register for an API key |
+| get_usage | Get current usage and quota |
+| upgrade_to_pro | Upgrade to Pro plan (returns Stripe Checkout URL) |
+| manage_billing | Open Stripe billing portal |
+
+---
+
+## Pricing
+
+### Free Tier ($0/forever)
+
+- 10 dynamic QR codes
+- 1,000 scans/month
+- 11 QR code types
+- Custom styled QR codes (colors, shapes, logo, gradients)
+- Frames and templates (CTA text on QR codes)
+- Full REST API access
+- MCP server (37 tools)
+- UTM tracking parameters
+- GTM container support
+- Conditional redirects (device, OS, country, language, time, A/B)
+- Enriched analytics (device, browser, country)
+- Conversion tracking (pixel + API)
+- 1 webhook endpoint
+- Multi-tenant isolation
+- Open source (MIT)
+- No credit card required
+
+### Pro Plan ($19/month)
+
+Everything in Free, plus:
+
+- Unlimited QR codes
+- Unlimited scans
+- Unlimited webhooks
+- Bulk operations (up to 50 per request)
+- CSV bulk upload (up to 500 QR codes)
+- Custom domain (branded short URLs)
+- Higher rate limits
+- 99.9% uptime SLA
+- Priority support (email, 24h)
+
+---
+
+## Self-Hosting
+
+QR for Agent is MIT-licensed and fully self-hostable.
+
+### Docker
+
+```bash
+git clone https://github.com/benswel/qr-agent-core.git
+cd qr-agent-core
+docker build -t qr-agent .
+docker run -p 3000:3000 -v qr-data:/app/data qr-agent
+```
+
+### Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| PORT | No (default: 3000) | Server port |
+| DATABASE_URL | No (default: ./data/qr.db) | SQLite database path |
+| BASE_URL | Yes | Public URL for short links (e.g., https://api.yourdomain.com) |
+| ADMIN_KEY | No | Admin API key for /api/admin/* endpoints |
+| STRIPE_SECRET_KEY | No | Stripe secret key (for billing) |
+| STRIPE_WEBHOOK_SECRET | No | Stripe webhook signing secret |
+| STRIPE_PRICE_ID | No | Stripe price ID for Pro plan |
+
+### MCP Server Environment
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| QR_API_KEY | Yes | Your API key |
+| QR_BASE_URL | No (default: https://api.qragentcore.com) | API base URL (set to your self-hosted URL) |
+
+---
+
+## Comparison with Alternatives
+
+| Feature | Traditional QR Services | QR for Agent |
+|---------|------------------------|--------------|
+| API access | $29-49/month minimum | Included at $0 |
+| MCP integration | None | Native — 37 tools |
+| Dynamic QR codes | Often paid-only | Included |
+| Scan analytics | Varies by tier | Included |
+| Custom QR styling | Paid plans only | Included (colors, shapes, logo) |
+| Real-time webhooks | Enterprise only | Included |
+| Dashboard required | Yes | No — API-first |
+| QR codes after trial | Deactivated without warning | Never deactivated |
+| Source code | Closed source | Open source (MIT) |
+| Pricing model | Monthly subscription with arbitrary limits | Free to start, usage-based Pro |
+
+Uniqode charges $49/month for API access. Bitly charges $29/month for 10 QR codes. QR Tiger starts at $37/month for their API plan. QR for Agent gives you the full API, MCP access, and dynamic QR codes at $0.

@@ -5,7 +5,12 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://qrforagent.com",
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    sitemap({
+      filter: (page) => !page.includes("/admin") && !page.includes("/checkout"),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
