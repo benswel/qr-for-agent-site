@@ -99,7 +99,7 @@ import TerminalWindow from "../components/TerminalWindow.astro";
     <SectionHeading title="MCP Setup" align="left" />
 
     <p class="mb-10 text-(--text-body) text-muted-foreground">
-      QR for Agent ships as a standalone MCP server on npm. One package, 34 tools, 3 dependencies.
+      QR for Agent ships as a standalone MCP server on npm. One package, 37 tools, 3 dependencies.
     </p>
 
     <!-- Claude Desktop -->
@@ -123,7 +123,7 @@ import TerminalWindow from "../components/TerminalWindow.astro";
 }`}</code></pre>
       </TerminalWindow>
       <p class="mt-4 text-(--text-body) text-muted-foreground">
-        Restart Claude Desktop. Your agent now has 34 tools available.
+        Restart Claude Desktop. Your agent now has 37 tools available.
       </p>
     </div>
 
@@ -333,41 +333,6 @@ import TerminalWindow from "../components/TerminalWindow.astro";
             <td class="px-4 py-3 font-mono text-code-green">POST</td>
             <td class="px-4 py-3 font-mono text-code-green">/api/stripe/portal</td>
             <td class="px-4 py-3 text-muted-foreground">Open Stripe billing portal</td>
-            <td class="px-4 py-3 text-muted-foreground">Yes</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Custom Domain Endpoints table -->
-    <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Custom Domain Endpoints <span class="ml-2 rounded-(--radius-full) bg-code-green px-2 py-0.5 text-xs font-medium text-background">Pro</span></h3>
-    <div class="mb-10 overflow-x-auto">
-      <table class="w-full text-sm">
-        <thead>
-          <tr class="border-b border-border text-left">
-            <th class="px-4 py-3 font-medium text-foreground">Method</th>
-            <th class="px-4 py-3 font-medium text-foreground">Path</th>
-            <th class="px-4 py-3 font-medium text-foreground">Description</th>
-            <th class="px-4 py-3 font-medium text-foreground">Auth</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b border-border">
-            <td class="px-4 py-3 font-mono text-code-green">GET</td>
-            <td class="px-4 py-3 font-mono text-code-green">/api/domain</td>
-            <td class="px-4 py-3 text-muted-foreground">Get current custom domain and DNS status</td>
-            <td class="px-4 py-3 text-muted-foreground">Yes</td>
-          </tr>
-          <tr class="border-b border-border">
-            <td class="px-4 py-3 font-mono text-code-green">PUT</td>
-            <td class="px-4 py-3 font-mono text-code-green">/api/domain</td>
-            <td class="px-4 py-3 text-muted-foreground">Set custom domain (Pro only)</td>
-            <td class="px-4 py-3 text-muted-foreground">Yes</td>
-          </tr>
-          <tr class="border-b border-border">
-            <td class="px-4 py-3 font-mono text-code-green">DELETE</td>
-            <td class="px-4 py-3 font-mono text-code-green">/api/domain</td>
-            <td class="px-4 py-3 text-muted-foreground">Remove custom domain</td>
             <td class="px-4 py-3 text-muted-foreground">Yes</td>
           </tr>
         </tbody>
@@ -876,7 +841,7 @@ import TerminalWindow from "../components/TerminalWindow.astro";
               <td class="px-4 py-3 text-muted-foreground">string[]</td>
               <td class="px-4 py-3 text-muted-foreground">No</td>
               <td class="px-4 py-3 font-mono text-muted-foreground">["qr.scanned"]</td>
-              <td class="px-4 py-3 text-muted-foreground">Events to subscribe to. Currently supported: <code class="font-mono text-code-green">"qr.scanned"</code>.</td>
+              <td class="px-4 py-3 text-muted-foreground">Events to subscribe to: <code class="font-mono text-code-green">"qr.scanned"</code>, <code class="font-mono text-code-green">"qr.conversion"</code>.</td>
             </tr>
           </tbody>
         </table>
@@ -935,6 +900,104 @@ function verifySignature(body, signature, secret) {
       </TerminalWindow>
     </div>
 
+    <!-- GET /t/:shortId -- Tracking Pixel -->
+    <div class="mb-12">
+      <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">GET /t/:shortId -- Tracking pixel (conversion)</h3>
+      <p class="mb-6 text-(--text-body) text-muted-foreground">
+        Zero-JavaScript conversion tracking. Embed this URL as an invisible image on your thank-you page. Returns a 1&times;1 transparent GIF. No authentication required -- the short ID scopes the event to your QR code.
+      </p>
+      <p class="mb-4 font-medium text-foreground">Query parameters:</p>
+      <div class="mb-6 overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border text-left">
+              <th class="px-4 py-3 font-medium text-foreground">Parameter</th>
+              <th class="px-4 py-3 font-medium text-foreground">Type</th>
+              <th class="px-4 py-3 font-medium text-foreground">Required</th>
+              <th class="px-4 py-3 font-medium text-foreground">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">event</td>
+              <td class="px-4 py-3 text-muted-foreground">string</td>
+              <td class="px-4 py-3 text-muted-foreground">Yes</td>
+              <td class="px-4 py-3 text-muted-foreground">Event name (e.g. "purchase", "signup", "lead").</td>
+            </tr>
+            <tr class="border-b border-border">
+              <td class="px-4 py-3 font-mono text-code-green">value</td>
+              <td class="px-4 py-3 text-muted-foreground">number</td>
+              <td class="px-4 py-3 text-muted-foreground">No</td>
+              <td class="px-4 py-3 text-muted-foreground">Monetary value of the conversion.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <TerminalWindow title="HTML embed">
+        <pre><code class="text-code-green">&lt;img src="https://api.qragentcore.com/t/wkQ5W-fm?event=purchase&amp;value=49.99" width="1" height="1" alt="" /&gt;</code></pre>
+      </TerminalWindow>
+    </div>
+
+    <!-- POST /api/conversions -->
+    <div class="mb-12">
+      <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">POST /api/conversions -- Record a conversion</h3>
+      <p class="mb-6 text-(--text-body) text-muted-foreground">
+        Record a conversion event programmatically. Use this when server-side tracking is preferred over the pixel approach.
+      </p>
+      <TerminalWindow title="Request">
+        <pre><code><span class="text-code-green">$</span> curl -X POST https://api.qragentcore.com/api/conversions \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: qr_YOUR_KEY" \
+  -d '&#123;"short_id": "wkQ5W-fm", "event": "purchase", "value": 49.99&#125;'</code></pre>
+      </TerminalWindow>
+      <p class="mt-6 mb-4 font-medium text-foreground">Response (201):</p>
+      <TerminalWindow title="Response">
+        <pre><code class="text-code-green">{`{
+  "id": 1,
+  "qr_code_id": 42,
+  "event_name": "purchase",
+  "value": "49.99",
+  "created_at": "2026-03-02T10:00:00.000Z"
+}`}</code></pre>
+      </TerminalWindow>
+    </div>
+
+    <!-- GET /api/conversions/:shortId -->
+    <div class="mb-12">
+      <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">GET /api/conversions/:shortId -- Conversion stats</h3>
+      <p class="mb-6 text-(--text-body) text-muted-foreground">
+        Get conversion analytics for a QR code: totals, breakdowns by event name, daily trends, and recent events. Supports period filtering.
+      </p>
+      <TerminalWindow title="Request">
+        <pre><code><span class="text-code-green">$</span> curl https://api.qragentcore.com/api/conversions/wkQ5W-fm?period=30d \
+  -H "X-API-Key: qr_YOUR_KEY"</code></pre>
+      </TerminalWindow>
+      <p class="mt-6 mb-4 font-medium text-foreground">Response (200):</p>
+      <TerminalWindow title="Response">
+        <pre><code class="text-code-green">{`{
+  "short_id": "wkQ5W-fm",
+  "total_conversions": 42,
+  "total_value": 1250.50,
+  "period": "30d",
+  "by_event": [
+    { "event_name": "purchase", "count": 30, "total_value": 1200.00 },
+    { "event_name": "signup", "count": 12, "total_value": 50.50 }
+  ],
+  "by_day": [
+    { "date": "2026-03-01", "count": 5, "total_value": 200.00 }
+  ],
+  "recent_events": [
+    {
+      "event_name": "purchase",
+      "value": "49.99",
+      "metadata": {},
+      "created_at": "2026-03-02T10:00:00.000Z"
+    }
+  ]
+}`}</code></pre>
+      </TerminalWindow>
+    </div>
+
     <!-- Authentication -->
     <div>
       <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Authentication</h3>
@@ -954,7 +1017,7 @@ function verifySignature(body, signature, secret) {
     <SectionHeading title="MCP Tools" align="left" />
 
     <p class="mb-10 text-(--text-body) text-muted-foreground">
-      34 tools. No context bloat, no "too many tools" problem. Each tool maps 1:1 to a REST endpoint.
+      37 tools. No context bloat, no "too many tools" problem. Each tool maps 1:1 to a REST endpoint.
     </p>
 
     <!-- QR Code Tools -->
@@ -1085,6 +1148,11 @@ function verifySignature(body, signature, secret) {
             <td class="px-4 py-3 text-muted-foreground">Delete up to 50 QR codes in one request.</td>
           </tr>
           <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">bulk_create_from_csv</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">csv_content</code></td>
+            <td class="px-4 py-3 text-muted-foreground">Create up to 500 QR codes from CSV data. Pro only.</td>
+          </tr>
+          <tr class="border-b border-border">
             <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">set_utm_params</td>
             <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code>, <code class="font-mono text-code-green">utm_source</code>, <code class="font-mono text-code-green">utm_medium</code>, <code class="font-mono text-code-green">utm_campaign</code>, ...</td>
             <td class="px-4 py-3 text-muted-foreground">Set UTM tracking parameters on a URL QR code.</td>
@@ -1129,6 +1197,58 @@ function verifySignature(body, signature, secret) {
       </table>
     </div>
 
+    <!-- Conversion Tools -->
+    <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Conversion Tools</h3>
+    <div class="mb-10 overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-border text-left">
+            <th class="px-4 py-3 font-medium text-foreground">Tool</th>
+            <th class="px-4 py-3 font-medium text-foreground">Key Parameters</th>
+            <th class="px-4 py-3 font-medium text-foreground">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">record_conversion</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code>, <code class="font-mono text-code-green">event</code>, <code class="font-mono text-code-green">value</code></td>
+            <td class="px-4 py-3 text-muted-foreground">Record a conversion event (purchase, signup) for a QR code.</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">get_conversions</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code>, <code class="font-mono text-code-green">period</code></td>
+            <td class="px-4 py-3 text-muted-foreground">Get conversion stats: totals, by event, by day, recent events.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Domain Tools -->
+    <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Domain Tools</h3>
+    <div class="mb-10 overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-border text-left">
+            <th class="px-4 py-3 font-medium text-foreground">Tool</th>
+            <th class="px-4 py-3 font-medium text-foreground">Key Parameters</th>
+            <th class="px-4 py-3 font-medium text-foreground">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">set_custom_domain</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">domain</code></td>
+            <td class="px-4 py-3 text-muted-foreground">Set a custom domain for branded short URLs. Pro only.</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">get_custom_domain</td>
+            <td class="px-4 py-3 text-muted-foreground">--</td>
+            <td class="px-4 py-3 text-muted-foreground">Get current custom domain and DNS verification status.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <!-- Account Tools -->
     <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Account Tools</h3>
     <div class="mb-10 overflow-x-auto">
@@ -1165,32 +1285,6 @@ function verifySignature(body, signature, secret) {
       </table>
     </div>
 
-    <!-- Custom Domain Tools -->
-    <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">Custom Domain Tools</h3>
-    <div class="mb-10 overflow-x-auto">
-      <table class="w-full text-sm">
-        <thead>
-          <tr class="border-b border-border text-left">
-            <th class="px-4 py-3 font-medium text-foreground">Tool</th>
-            <th class="px-4 py-3 font-medium text-foreground">Key Parameters</th>
-            <th class="px-4 py-3 font-medium text-foreground">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b border-border">
-            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">set_custom_domain</td>
-            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">domain</code></td>
-            <td class="px-4 py-3 text-muted-foreground">Set a custom domain for branded short URLs (Pro only). Pass null to remove.</td>
-          </tr>
-          <tr class="border-b border-border">
-            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">get_custom_domain</td>
-            <td class="px-4 py-3 text-muted-foreground">--</td>
-            <td class="px-4 py-3 text-muted-foreground">Get your current custom domain configuration and DNS verification status.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
     <!-- Tool details -->
     <h3 class="mb-6 text-(--text-h3) font-bold text-foreground">Tool details</h3>
 
@@ -1215,10 +1309,24 @@ function verifySignature(body, signature, secret) {
       </p>
     </div>
 
-    <div>
+    <div class="mb-8">
       <p class="mb-2 font-mono font-medium text-code-green">get_qr_analytics</p>
       <p class="text-(--text-body) text-muted-foreground">
         Returns enriched scan analytics with breakdowns by device, browser, country, referer, and daily trends. Supports a <code class="text-code-green">period</code> parameter (7d, 30d, 90d, all). User-agents are parsed and IPs geolocated at scan time — your agent gets structured data, not raw strings.
+      </p>
+    </div>
+
+    <div class="mb-8">
+      <p class="mb-2 font-mono font-medium text-code-green">record_conversion</p>
+      <p class="text-(--text-body) text-muted-foreground">
+        Track post-scan events like purchases, signups, or leads. Pair with the zero-JS tracking pixel (<code class="text-code-green">GET /t/:shortId?event=purchase&amp;value=49.99</code>) for server-free conversion tracking, or call the API directly from your backend.
+      </p>
+    </div>
+
+    <div>
+      <p class="mb-2 font-mono font-medium text-code-green">bulk_create_from_csv</p>
+      <p class="text-(--text-body) text-muted-foreground">
+        Create up to 500 QR codes from CSV data in a single call. Pro only. Each row maps to a QR code with support for all style options, types, and frames. Row-level validation with error line numbers.
       </p>
     </div>
   </Section>

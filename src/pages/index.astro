@@ -14,7 +14,7 @@ const comparisonRows = [
   {
     feature: "MCP integration",
     traditional: "None (or via Zapier)",
-    product: "Native — 32 dedicated tools",
+    product: "Native — 37 dedicated tools",
   },
   {
     feature: "Installation",
@@ -34,7 +34,7 @@ const comparisonRows = [
   {
     feature: "Context footprint",
     traditional: "27+ tools, 60K tokens burned",
-    product: "34 tools, 5 kB total",
+    product: "37 tools, 5 kB total",
   },
   {
     feature: "Source code",
@@ -149,7 +149,7 @@ our logo, and indigo color scheme.</code></pre>
       <StepCard
         number={3}
         title="Create"
-        description="Your agent now has 34 tools. Create styled QR codes, track scans, manage webhooks -- all in plain language."
+        description="Your agent now has 37 tools. Create styled QR codes, track scans and conversions, manage webhooks -- all in plain language."
       />
     </div>
 
@@ -168,7 +168,7 @@ our logo, and indigo color scheme.</code></pre>
     <!-- 6 MCP Tools list -->
     <div class="mb-10">
       <p class="mb-4 text-(--text-body) font-medium text-foreground">
-        34 tools. Lean by design:
+        37 tools. Lean by design:
       </p>
       <ul class="space-y-2 text-(--text-body) text-muted-foreground">
         <li>
@@ -299,12 +299,32 @@ our logo, and indigo color scheme.</code></pre>
           <code class="font-mono text-code-green">set_redirect_rules</code>
           <span class="text-muted-foreground"> -- Set conditional redirect rules on a URL QR code</span>
         </li>
+        <li>
+          <code class="font-mono text-code-green">set_custom_domain</code>
+          <span class="text-muted-foreground"> -- Set or remove your branded short URL domain (Pro)</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">get_custom_domain</code>
+          <span class="text-muted-foreground"> -- Check custom domain configuration and DNS status</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">bulk_create_from_csv</code>
+          <span class="text-muted-foreground"> -- Create up to 500 QR codes from CSV data (Pro)</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">record_conversion</code>
+          <span class="text-muted-foreground"> -- Record a post-scan conversion event (purchase, signup)</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">get_conversions</code>
+          <span class="text-muted-foreground"> -- Get conversion stats, ROI data, and event breakdowns</span>
+        </li>
       </ul>
     </div>
 
     <!-- Highlight line -->
     <p class="mb-10 rounded-(--radius-md) border border-border bg-code-bg px-6 py-4 text-center font-mono text-(--text-body) font-medium text-foreground">
-      34 tools. 3 dependencies. ~5 kB package. Your context window stays clean.
+      37 tools. 3 dependencies. ~5 kB package. Your context window stays clean.
     </p>
 
     <!-- Feature cards grid -->
@@ -318,8 +338,8 @@ our logo, and indigo color scheme.</code></pre>
         description="Colors, dot shapes, corner styles, logo embedding -- your agent creates on-brand QR codes in one prompt. No design tool needed."
       />
       <FeatureCard
-        title="Bulk Operations"
-        description="Create, update, or delete up to 50 QR codes in a single API call. Your agent handles campaign launches and mass updates without rate limit headaches."
+        title="Bulk Operations + CSV"
+        description="Create, update, or delete up to 50 QR codes in one API call. Need more? Upload a CSV with up to 500 QR codes (Pro). Your agent handles campaign launches at scale."
       />
       <FeatureCard
         title="11 QR Code Types"
@@ -346,12 +366,20 @@ our logo, and indigo color scheme.</code></pre>
         description="Route scanners to different URLs based on device, OS, country, language, time of day, or A/B split. Your agent configures rules in one prompt -- no redirect service needed."
       />
       <FeatureCard
+        title="Frames & Templates"
+        description="Add decorative frames with CTA text around QR codes -- 'Scan Me!', 'View Menu', 'Get Tickets'. Three styles (banner top, banner bottom, rounded border) with custom colors. Your agent creates print-ready QR codes in one prompt."
+      />
+      <FeatureCard
+        title="Conversion Tracking"
+        description="Measure QR code ROI. Track post-scan events (purchases, signups) via a zero-JS tracking pixel or authenticated API. Get breakdowns by event, day, and value. No analytics service needed -- it's built in."
+      />
+      <FeatureCard
         title="Custom Domains"
-        description="Brand your QR short URLs with your own domain. Pro users set a custom domain and every new QR code uses it -- qr.yourbrand.com/r/abc123 instead of a generic URL. DNS verification built in."
+        description="Brand your short URLs with your own domain. Instead of qrforagent.com/r/abc123, use qr.yourbrand.com/r/abc123. DNS verification included. Pro plan only."
       />
       <FeatureCard
         title="Real-Time Webhooks"
-        description="Get notified the instant a QR code is scanned. HMAC-signed payloads, delivery logging, fire-and-forget -- your agent sets it up in one command."
+        description="Get notified the instant a QR code is scanned or a conversion fires. HMAC-signed payloads, delivery logging, fire-and-forget -- your agent sets it up in one command."
       />
       <FeatureCard
         title="Multi-Tenant Isolation"
@@ -363,7 +391,7 @@ our logo, and indigo color scheme.</code></pre>
       />
       <FeatureCard
         title="Lightweight by Design"
-        description={`The "too many tools" problem is real -- "context windows filling up with tool definitions, loading 50 tools meant burning 100K+ tokens before the conversation started." QR for Agent ships 34 tools at 5 kB. Your agent keeps its focus.`}
+        description={`The "too many tools" problem is real -- "context windows filling up with tool definitions, loading 50 tools meant burning 100K+ tokens before the conversation started." QR for Agent ships 37 tools at 5 kB. Your agent keeps its focus.`}
       />
     </div>
 
