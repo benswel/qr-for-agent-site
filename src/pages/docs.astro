@@ -99,7 +99,7 @@ import TerminalWindow from "../components/TerminalWindow.astro";
     <SectionHeading title="MCP Setup" align="left" />
 
     <p class="mb-10 text-(--text-body) text-muted-foreground">
-      QR for Agent ships as a standalone MCP server on npm. One package, 16 tools, 3 dependencies.
+      QR for Agent ships as a standalone MCP server on npm. One package, 20 tools, 3 dependencies.
     </p>
 
     <!-- Claude Desktop -->
@@ -123,7 +123,7 @@ import TerminalWindow from "../components/TerminalWindow.astro";
 }`}</code></pre>
       </TerminalWindow>
       <p class="mt-4 text-(--text-body) text-muted-foreground">
-        Restart Claude Desktop. Your agent now has 16 tools available.
+        Restart Claude Desktop. Your agent now has 20 tools available.
       </p>
     </div>
 
@@ -879,7 +879,7 @@ function verifySignature(body, signature, secret) {
     <SectionHeading title="MCP Tools" align="left" />
 
     <p class="mb-10 text-(--text-body) text-muted-foreground">
-      16 tools. No context bloat, no "too many tools" problem. Each tool maps 1:1 to a REST endpoint.
+      20 tools. No context bloat, no "too many tools" problem. Each tool maps 1:1 to a REST endpoint.
     </p>
 
     <!-- QR Code Tools -->
@@ -923,6 +923,26 @@ function verifySignature(body, signature, secret) {
             <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">get_qr_analytics</td>
             <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code></td>
             <td class="px-4 py-3 text-muted-foreground">Get scan count and recent scan events.</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">create_vcard_qr</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">name</code>, <code class="font-mono text-code-green">email</code>, <code class="font-mono text-code-green">phone</code>, <code class="font-mono text-code-green">organization</code>, ...</td>
+            <td class="px-4 py-3 text-muted-foreground">Create a contact card QR code with name, email, phone, organization, etc.</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">create_wifi_qr</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">ssid</code>, <code class="font-mono text-code-green">password</code>, <code class="font-mono text-code-green">encryption</code></td>
+            <td class="px-4 py-3 text-muted-foreground">Create a WiFi QR code with SSID, password, and encryption type.</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">update_vcard_qr</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code>, <code class="font-mono text-code-green">name</code>, <code class="font-mono text-code-green">email</code>, <code class="font-mono text-code-green">phone</code>, ...</td>
+            <td class="px-4 py-3 text-muted-foreground">Update contact fields on a vCard QR code (partial merge).</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">update_wifi_qr</td>
+            <td class="px-4 py-3 text-muted-foreground"><code class="font-mono text-code-green">short_id</code>, <code class="font-mono text-code-green">ssid</code>, <code class="font-mono text-code-green">password</code>, ...</td>
+            <td class="px-4 py-3 text-muted-foreground">Update WiFi credentials on a WiFi QR code (partial merge).</td>
           </tr>
           <tr class="border-b border-border">
             <td class="px-4 py-3 font-mono text-code-green whitespace-nowrap">bulk_create_qr_codes</td>

@@ -14,7 +14,7 @@ const comparisonRows = [
   {
     feature: "MCP integration",
     traditional: "None (or via Zapier)",
-    product: "Native — 12 dedicated tools",
+    product: "Native — 20 dedicated tools",
   },
   {
     feature: "Installation",
@@ -34,7 +34,7 @@ const comparisonRows = [
   {
     feature: "Context footprint",
     traditional: "27+ tools, 60K tokens burned",
-    product: "16 tools, 5 kB total",
+    product: "20 tools, 5 kB total",
   },
   {
     feature: "Source code",
@@ -149,7 +149,7 @@ our logo, and indigo color scheme.</code></pre>
       <StepCard
         number={3}
         title="Create"
-        description="Your agent now has 16 tools. Create styled QR codes, track scans, manage webhooks -- all in plain language."
+        description="Your agent now has 20 tools. Create styled QR codes, track scans, manage webhooks -- all in plain language."
       />
     </div>
 
@@ -168,7 +168,7 @@ our logo, and indigo color scheme.</code></pre>
     <!-- 6 MCP Tools list -->
     <div class="mb-10">
       <p class="mb-4 text-(--text-body) font-medium text-foreground">
-        16 tools. Lean by design:
+        20 tools. Lean by design:
       </p>
       <ul class="space-y-2 text-(--text-body) text-muted-foreground">
         <li>
@@ -190,6 +190,34 @@ our logo, and indigo color scheme.</code></pre>
         <li>
           <code class="font-mono text-code-green">delete_qr_code</code>
           <span class="text-muted-foreground"> -- Remove a QR code permanently</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">bulk_create_qr_codes</code>
+          <span class="text-muted-foreground"> -- Create up to 50 QR codes in one request</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">bulk_update_qr_codes</code>
+          <span class="text-muted-foreground"> -- Update up to 50 QR codes in one request</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">bulk_delete_qr_codes</code>
+          <span class="text-muted-foreground"> -- Delete up to 50 QR codes in one request</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">create_vcard_qr</code>
+          <span class="text-muted-foreground"> -- Create a contact card QR code (vCard)</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">create_wifi_qr</code>
+          <span class="text-muted-foreground"> -- Create a WiFi network QR code</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">update_vcard_qr</code>
+          <span class="text-muted-foreground"> -- Update vCard QR code contact data</span>
+        </li>
+        <li>
+          <code class="font-mono text-code-green">update_wifi_qr</code>
+          <span class="text-muted-foreground"> -- Update WiFi QR code credentials</span>
         </li>
         <li>
           <code class="font-mono text-code-green">get_qr_analytics</code>
@@ -228,7 +256,7 @@ our logo, and indigo color scheme.</code></pre>
 
     <!-- Highlight line -->
     <p class="mb-10 rounded-(--radius-md) border border-border bg-code-bg px-6 py-4 text-center font-mono text-(--text-body) font-medium text-foreground">
-      16 tools. 3 dependencies. ~5 kB package. Your context window stays clean.
+      20 tools. 3 dependencies. ~5 kB package. Your context window stays clean.
     </p>
 
     <!-- Feature cards grid -->
@@ -242,8 +270,20 @@ our logo, and indigo color scheme.</code></pre>
         description="Colors, dot shapes, corner styles, logo embedding -- your agent creates on-brand QR codes in one prompt. No design tool needed."
       />
       <FeatureCard
-        title="Scan Analytics"
-        description="Track every scan: count, timestamp, referrer. Your agent can pull analytics and adjust campaigns in real time."
+        title="Bulk Operations"
+        description="Create, update, or delete up to 50 QR codes in a single API call. Your agent handles campaign launches and mass updates without rate limit headaches."
+      />
+      <FeatureCard
+        title="QR Types: vCard & WiFi"
+        description="Not just URLs -- create contact card and WiFi QR codes that phones recognize natively. Your agent generates vCards with name, email, phone, and WiFi configs with SSID, password, encryption type."
+      />
+      <FeatureCard
+        title="Expiration & Scheduling"
+        description="Set QR codes to expire or auto-switch destination at a future date. Your agent can create time-limited promotions or scheduled redirects without manual intervention."
+      />
+      <FeatureCard
+        title="Enriched Analytics"
+        description="Device, browser, country breakdowns with daily trends and period filtering. Your agent pulls scan data segmented by device type, referrer, location, and time range -- not just raw counts."
       />
       <FeatureCard
         title="Real-Time Webhooks"
@@ -259,7 +299,7 @@ our logo, and indigo color scheme.</code></pre>
       />
       <FeatureCard
         title="Lightweight by Design"
-        description={`The "too many tools" problem is real -- "context windows filling up with tool definitions, loading 50 tools meant burning 100K+ tokens before the conversation started." QR for Agent ships 16 tools at 5 kB. Your agent keeps its focus.`}
+        description={`The "too many tools" problem is real -- "context windows filling up with tool definitions, loading 50 tools meant burning 100K+ tokens before the conversation started." QR for Agent ships 20 tools at 5 kB. Your agent keeps its focus.`}
       />
     </div>
 
