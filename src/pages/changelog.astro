@@ -1,0 +1,225 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import CTASection from "../components/CTASection.astro";
+---
+
+<BaseLayout
+  title="Changelog — QR for Agent"
+  description="Every release of QR for Agent, from v0.1.0 to the latest. New features, improvements, and MCP tools — shipped weekly."
+>
+  <Hero
+    title="Changelog"
+    subtitle="Every feature, every release. From first commit to production."
+  />
+
+  <!-- v0.12.0 -->
+  <Section background="default">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.12.0</h2>
+        <span class="text-sm text-muted-foreground">March 2, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">Frames, Conversion Tracking, CSV Bulk Upload</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Frames &amp; templates</strong> &mdash; decorative frames around QR codes (banner_top, banner_bottom, rounded) with CTA text up to 30 characters. Custom colors for frame background and text.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Conversion tracking</strong> &mdash; dual approach: zero-JS tracking pixel (<code class="font-mono text-code-green">GET /t/:shortId?event=purchase&amp;value=49.99</code>) returns a 1&times;1 GIF, plus authenticated API (<code class="font-mono text-code-green">POST /api/conversions</code>). Stats endpoint with totals, by-event, by-day breakdowns.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Webhook event</strong> &mdash; new <code class="font-mono text-code-green">qr.conversion</code> event fired on every conversion.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">CSV bulk upload</strong> &mdash; Pro-only <code class="font-mono text-code-green">POST /api/qr/bulk/csv</code> to create up to 500 QR codes from CSV data. Supports multipart file upload and JSON body. Row-level validation with error line numbers.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">MCP</strong> &mdash; 3 new tools: <code class="font-mono text-code-green">bulk_create_from_csv</code>, <code class="font-mono text-code-green">record_conversion</code>, <code class="font-mono text-code-green">get_conversions</code>. 37 tools total.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> 195 integration tests.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.11.0 -->
+  <Section background="muted">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.11.0</h2>
+        <span class="text-sm text-muted-foreground">March 2, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">Custom Domains</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Custom domains</strong> &mdash; per-API-key custom domain for branded short URLs. Set via <code class="font-mono text-code-green">PUT /api/domain</code> with automatic DNS verification (CNAME or A record).</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> Pro-only feature. Short URLs automatically use your custom domain when configured.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">MCP</strong> &mdash; 2 new tools: <code class="font-mono text-code-green">set_custom_domain</code>, <code class="font-mono text-code-green">get_custom_domain</code>.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.10.0 -->
+  <Section background="default">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.10.0</h2>
+        <span class="text-sm text-muted-foreground">March 2, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">UTM, GTM, Conditional Redirects</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">UTM tracking</strong> &mdash; set UTM parameters (<code class="font-mono text-code-green">utm_source</code>, <code class="font-mono text-code-green">utm_medium</code>, <code class="font-mono text-code-green">utm_campaign</code>, etc.) on any URL QR code. Parameters auto-appended on redirect.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">GTM container</strong> &mdash; attach a Google Tag Manager container ID. Redirects serve an intermediate HTML page with the GTM snippet before forwarding.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Conditional redirects</strong> &mdash; route scans to different URLs based on device, OS, country, language, time of day, or A/B split percentage. Supports multi-condition rules (AND logic).</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Gradient QR codes</strong> &mdash; linear and radial gradients for QR dot and finder patterns. Supports multiple color stops and angle control.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">MCP</strong> &mdash; 2 new tools: <code class="font-mono text-code-green">set_utm_params</code>, <code class="font-mono text-code-green">set_redirect_rules</code>.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.9.0 -->
+  <Section background="muted">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.9.0</h2>
+        <span class="text-sm text-muted-foreground">March 2, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">11 QR Code Types</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">8 new QR code types</strong> &mdash; email (<code class="font-mono text-code-green">mailto:</code>), SMS (<code class="font-mono text-code-green">SMSTO:</code>), phone (<code class="font-mono text-code-green">tel:</code>), event (iCalendar .ics), plain text, location (<code class="font-mono text-code-green">geo:</code> &rarr; Google Maps), social (multi-platform JSON), and app store (smart iOS/Android UA-based redirect).</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> 11 total types: URL, vCard, WiFi, email, SMS, phone, event, text, location, social, app store.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">MCP</strong> &mdash; 10 new tools (8 create + 2 update for typed QR codes).</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.8.0 -->
+  <Section background="default">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.8.0</h2>
+        <span class="text-sm text-muted-foreground">March 2, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">vCard &amp; WiFi QR Codes</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">vCard QR codes</strong> &mdash; encode contact data directly in the QR code. Scanning prompts &ldquo;Add Contact&rdquo; and serves a <code class="font-mono text-code-green">.vcf</code> file.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">WiFi QR codes</strong> &mdash; encode network credentials (SSID, password, encryption type). Scanning prompts &ldquo;Join Network&rdquo; on supported devices.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> Type-based content rendering on redirect: <code class="font-mono text-code-green">.vcf</code> for vCard, JSON for WiFi, HTTP redirect for URL.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">MCP</strong> &mdash; 4 new tools: <code class="font-mono text-code-green">create_vcard_qr</code>, <code class="font-mono text-code-green">create_wifi_qr</code>, <code class="font-mono text-code-green">update_vcard_qr</code>, <code class="font-mono text-code-green">update_wifi_qr</code>.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.7.0 -->
+  <Section background="muted">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.7.0</h2>
+        <span class="text-sm text-muted-foreground">March 2, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">Enriched Analytics</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">User-agent parsing</strong> &mdash; every scan now records device type, browser, and OS (via ua-parser-js).</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Geo lookup</strong> &mdash; country and city resolved from IP at scan time (via geoip-lite).</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Aggregations</strong> &mdash; <code class="font-mono text-code-green">scans_by_day</code>, <code class="font-mono text-code-green">top_devices</code>, <code class="font-mono text-code-green">top_browsers</code>, <code class="font-mono text-code-green">top_countries</code>, <code class="font-mono text-code-green">top_referers</code>.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Period filter</strong> &mdash; <code class="font-mono text-code-green">?period=7d|30d|90d|all</code> on the analytics endpoint.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.6.0 -->
+  <Section background="default">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.6.0</h2>
+        <span class="text-sm text-muted-foreground">March 2, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">Expiration &amp; Scheduling</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">QR code expiration</strong> &mdash; set an <code class="font-mono text-code-green">expires_at</code> date. After expiry, scanning returns 410 Gone.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Scheduled URL swap</strong> &mdash; set a <code class="font-mono text-code-green">scheduled_url</code> and <code class="font-mono text-code-green">scheduled_at</code> date. The target URL automatically switches at the scheduled time (lazy activation on next scan).</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.5.0 -->
+  <Section background="muted">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.5.0</h2>
+        <span class="text-sm text-muted-foreground">March 2, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">Bulk Operations</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Bulk create, update, delete</strong> &mdash; operate on up to 50 QR codes per request via <code class="font-mono text-code-green">POST/PATCH/DELETE /api/qr/bulk</code>.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">MCP</strong> &mdash; 3 new tools: <code class="font-mono text-code-green">bulk_create_qr_codes</code>, <code class="font-mono text-code-green">bulk_update_qr_codes</code>, <code class="font-mono text-code-green">bulk_delete_qr_codes</code>.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.4.0 -->
+  <Section background="default">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.4.0</h2>
+        <span class="text-sm text-muted-foreground">February 28, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">Stripe Billing</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Pro plan live</strong> &mdash; $19/month via Stripe Checkout. Full subscription lifecycle: create, upgrade, cancel at period end.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Customer Portal</strong> &mdash; self-service subscription management, payment method updates, invoice history.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">MCP</strong> &mdash; 2 new tools: <code class="font-mono text-code-green">upgrade_to_pro</code>, <code class="font-mono text-code-green">manage_billing</code>.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.3.0 -->
+  <Section background="muted">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.3.0</h2>
+        <span class="text-sm text-muted-foreground">February 27, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">Registration, Webhooks, Custom QR Codes</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Self-service registration</strong> &mdash; <code class="font-mono text-code-green">POST /api/register</code> with email and label. No credit card required.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Real-time webhooks</strong> &mdash; CRUD for webhook endpoints. <code class="font-mono text-code-green">qr.scanned</code> events delivered with HMAC-SHA256 signatures, fire-and-forget with delivery logging.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Custom QR renderer</strong> &mdash; SVG-based renderer with dot styles (square, rounded, dots, classy-rounded), corner styles (square, extra-rounded, dot), foreground/background colors, and optional logo embedding. PNG export via sharp.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Free tier limits</strong> &mdash; 10 QR codes, 1,000 scans/month, 1 webhook endpoint. Enforced server-side.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.2.0 -->
+  <Section background="default">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.2.0</h2>
+        <span class="text-sm text-muted-foreground">February 27, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">MCP Server</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">First npm publish</strong> &mdash; <code class="font-mono text-code-green">npx qr-for-agent</code> launches the MCP server.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">MCP server</strong> &mdash; core tools for creating, updating, deleting, and listing QR codes. Works with Claude Desktop, Cursor, and any MCP-compatible client.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> Published to the official MCP registry.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- v0.1.0 -->
+  <Section background="muted">
+    <div class="mx-auto max-w-3xl">
+      <div class="flex items-baseline gap-4 mb-2">
+        <h2 class="text-(--text-h3) font-bold text-foreground">v0.1.0</h2>
+        <span class="text-sm text-muted-foreground">February 27, 2026</span>
+      </div>
+      <p class="text-(--text-body) font-medium text-code-green mb-6">Initial Release</p>
+      <ul class="space-y-2 text-(--text-body) text-muted-foreground">
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Fastify 5 API</strong> &mdash; REST API with OpenAPI/Swagger documentation.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Dynamic QR codes</strong> &mdash; create QR codes that redirect to a target URL. Change the destination anytime without regenerating the image.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Short URL redirects</strong> &mdash; each QR code gets a unique short URL with scan tracking.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Multi-tenant API keys</strong> &mdash; each API key sees only its own QR codes. Built for agencies and consultants.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">SQLite + Drizzle ORM</strong> &mdash; zero-config database, no external dependencies.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> <strong class="text-foreground">Docker + Railway</strong> &mdash; one-click deploy with Docker image.</li>
+        <li class="flex gap-2"><span class="text-code-green shrink-0">&bull;</span> MIT-licensed. Open source from day one.</li>
+      </ul>
+    </div>
+  </Section>
+
+  <CTASection
+    title="Start building with QR for Agent"
+    description="Dynamic QR codes. Full API. MCP access. Open source. $0 to start."
+    primaryCTA={{ text: "Get Your API Key", href: "/get-started" }}
+    secondaryCTA={{ text: "View on GitHub", href: "https://github.com/benswel/qr-agent-core" }}
+  />
+</BaseLayout>

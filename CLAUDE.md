@@ -26,6 +26,7 @@ Marketing site for **QR for Agent** (qrforagent.com) — a QR-as-a-Service API b
 | `/` | `src/pages/index.astro` | Landing page — hero, features, how-it-works, comparison, CTA |
 | `/docs` | `src/pages/docs.astro` | Documentation — API reference, MCP setup, code examples |
 | `/pricing` | `src/pages/pricing.astro` | Pricing plans with FAQ accordion |
+| `/changelog` | `src/pages/changelog.astro` | Release history from v0.1.0 to latest |
 
 ## Project structure
 
