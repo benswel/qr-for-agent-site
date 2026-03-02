@@ -639,12 +639,12 @@ import TerminalWindow from "../components/TerminalWindow.astro";
 
     <!-- GET /api/analytics/:shortId -->
     <div class="mb-12">
-      <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">GET /api/analytics/:shortId -- Scan analytics</h3>
+      <h3 class="mb-4 text-(--text-h3) font-bold text-foreground">GET /api/analytics/:shortId -- Enriched scan analytics</h3>
       <p class="mb-6 text-(--text-body) text-muted-foreground">
-        Returns total scan count and the 50 most recent scan events.
+        Returns scan statistics with aggregations by device, browser, country, referer, and daily trends. Supports <code class="text-code-green">?period=7d|30d|90d|all</code> (default: 30d). User-agent is parsed and IPs are geolocated at scan time.
       </p>
       <TerminalWindow title="Request">
-        <pre><code><span class="text-code-green">$</span> curl https://api.qragentcore.com/api/analytics/wkQ5W-fm \
+        <pre><code><span class="text-code-green">$</span> curl https://api.qragentcore.com/api/analytics/wkQ5W-fm?period=30d \
   -H "X-API-Key: qr_YOUR_KEY"</code></pre>
       </TerminalWindow>
       <p class="mt-6 mb-4 font-medium text-foreground">Response:</p>
@@ -652,11 +652,37 @@ import TerminalWindow from "../components/TerminalWindow.astro";
         <pre><code class="text-code-green">{`{
   "short_id": "wkQ5W-fm",
   "total_scans": 142,
+  "period": "30d",
+  "scans_by_day": [
+    { "date": "2026-02-26", "count": 12 },
+    { "date": "2026-02-27", "count": 8 }
+  ],
+  "top_devices": [
+    { "device_type": "mobile", "count": 89, "percentage": 62.7 },
+    { "device_type": "desktop", "count": 45, "percentage": 31.7 }
+  ],
+  "top_browsers": [
+    { "browser": "Chrome", "count": 65, "percentage": 45.8 },
+    { "browser": "Safari", "count": 42, "percentage": 29.6 }
+  ],
+  "top_countries": [
+    { "country": "FR", "count": 80, "percentage": 56.3 },
+    { "country": "US", "count": 30, "percentage": 21.1 }
+  ],
+  "top_referers": [
+    { "referer": "instagram.com", "count": 30, "percentage": 21.1 },
+    { "referer": "(direct)", "count": 25, "percentage": 17.6 }
+  ],
   "recent_scans": [
     {
-      "scanned_at": "2026-02-24T14:32:00.000Z",
+      "scanned_at": "2026-02-27T14:32:00.000Z",
       "user_agent": "Mozilla/5.0 ...",
-      "referer": null
+      "referer": "https://instagram.com/",
+      "device_type": "mobile",
+      "browser": "Safari",
+      "os": "iOS",
+      "country": "FR",
+      "city": "Paris"
     }
   ]
 }`}</code></pre>
@@ -942,7 +968,7 @@ function verifySignature(body, signature, secret) {
     <div>
       <p class="mb-2 font-mono font-medium text-code-green">get_qr_analytics</p>
       <p class="text-(--text-body) text-muted-foreground">
-        Returns aggregated scan statistics and recent scan events. Your agent can pull analytics and adjust campaigns without opening a dashboard.
+        Returns enriched scan analytics with breakdowns by device, browser, country, referer, and daily trends. Supports a <code class="text-code-green">period</code> parameter (7d, 30d, 90d, all). User-agents are parsed and IPs geolocated at scan time — your agent gets structured data, not raw strings.
       </p>
     </div>
   </Section>
