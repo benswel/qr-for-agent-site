@@ -1,173 +1,99 @@
 ---
 title: "11 Types of QR Codes You Can Create with an API"
-description: "Beyond URLs: Learn about vCard, WiFi, email, SMS, calendar events, and 6 other QR code types. See which work offline and how to generate them programmatically."
+description: "QR codes do more than open URLs. vCard, WiFi, calendar events, and 8 other types that encode structured data your users' devices already know how to handle."
 date: 2026-03-03
 slug: "11-types-of-qr-codes"
 ---
 
-Most people think QR codes only store URLs. Scan a code, open a website. But the QR code specification supports multiple data formats, each optimized for a specific use case.
+The QR code spec has 11 different data types, but 99% of codes you see in the wild are just URLs. Open a website, that's it.
 
-vCard codes transfer contact information. WiFi codes share network credentials. Event codes add calendar entries. Each type encodes structured data that devices know how to parse and act on.
+Which is fine. URLs are flexible. But if you're building something where the user's intent is specific—connect to WiFi, add a contact, dial a number—you can encode that action directly. No landing page, no extra tap. Scan and done.
 
-For developers, this means you can build workflows that go beyond "scan to visit a webpage." A restaurant app can generate WiFi codes for guests. An event platform can create calendar codes for sessions. A CRM can produce vCard codes for sales teams.
+Here's the full list of what you can encode, starting with the ones that actually get used.
 
-Here's a complete tour of all 11 QR code types, what they do, and when to use them.
+## URL
 
-## 1. URL
+This is the baseline. Encode a web address, user scans it, browser opens. You already know how this works.
 
-**What it does:** Opens a web page when scanned.
+The reason URL codes dominate is they're easy to generate and they work everywhere. When you want analytics or the ability to change the destination without reprinting, you use a dynamic URL (short redirect link). When you just need a static pointer to a page, you encode the full URL directly.
 
-**Encoding:** Plain URL string encoded in the matrix.
+If you're not sure which type to use, default to URL. You can always serve other data types (vCard, iCal) from a URL endpoint if you want the flexibility later.
 
-**Works offline:** No—requires internet to load the destination page.
+## vCard (Contact Cards)
 
-**Use cases:** Marketing campaigns, product packaging, business cards with portfolio links, event posters, menu ordering systems.
+Encodes contact info in vCard format. Scan it and your phone offers to save the contact with name, email, phone, company, title—whatever fields you included. No typing.
 
-**Dynamic or static:** Can be either. Static codes encode the URL directly. Dynamic codes encode a short redirect URL, letting you change the destination without regenerating the image.
+This is the best upgrade from paper business cards. Print a vCard QR code on your card and people can import your contact in one scan instead of manually entering 6 fields. Conference badges, email signatures, real estate signs—anywhere you'd hand out contact info.
 
-This is the most common QR code type. When you see a code in the wild, it's probably a URL code.
+The data lives in the code, so it works offline. Most phones parse vCard 3.0 and 4.0 without needing an app.
 
-## 2. vCard (Contact Card)
+## WiFi
 
-**What it does:** Adds a contact to the user's address book when scanned.
+Guest network credentials encoded in a `WIFI:` format your phone knows how to read. Scan the code, phone connects. No "what's the password?" conversation.
 
-**Encoding:** vCard 3.0 or 4.0 format with name, phone, email, address, title, and organization fields.
+Coffee shops, hotels, Airbnbs, coworking spaces—this is the easiest WiFi onboarding you can offer. Print the code on the wall or on table tents. Guests connect without asking staff or digging through a welcome email.
 
-**Works offline:** Yes—vCard data is embedded in the matrix and parsed locally.
+Works offline in the sense that the credentials are embedded in the code. But obviously you need the network to be in range.
 
-**Use cases:** Business cards, conference badges, email signatures, networking events, real estate agents, sales teams.
+## The Communication Triad: Email, SMS, Phone
 
-**Dynamic or static:** Typically static, since contact info doesn't change frequently. You can make it dynamic by encoding a URL that serves vCard data, but this adds an extra step and requires internet.
+These three types do basically the same thing: pre-fill an action in your phone's default app.
 
-vCard codes are underused but incredibly practical. Instead of manually typing someone's phone number and email, you scan once and everything imports automatically.
+**Email codes** encode a `mailto:` link with recipient, subject, and body. Scan it and your mail app opens with everything filled in. Useful for "contact us" buttons on flyers or feedback forms where you want to reduce typing friction.
 
-## 3. WiFi
+**SMS codes** encode an `sms:` link with a phone number and optional message. Used a lot for contest entries ("text JOIN to 12345") or campaign opt-ins. The user still has to tap send, but you control what message they start with.
 
-**What it does:** Connects the device to a WiFi network when scanned.
+**Phone codes** just encode a `tel:` link. Tap to dial. That's it. Business cards, support hotlines, "call now" ads. You can make them dynamic if you want to route calls to different numbers based on time or location, but most are static.
 
-**Encoding:** SSID, password, and encryption type (WPA, WPA2, WEP, or none) in a special `WIFI:` format.
+None of these work offline—they need cellular or internet to actually send the message or complete the call. But they're dead simple to implement and they do what they say.
 
-**Works offline:** Yes—credentials are embedded in the code. But you need network access to actually connect.
+## Calendar Events (iCal)
 
-**Use cases:** Coffee shops, hotels, coworking spaces, Airbnbs, restaurants, conferences, offices.
+Encodes event details in iCalendar format. Scan it and your phone offers to add the event to your calendar with title, time, location, description.
 
-**Dynamic or static:** Always static. WiFi credentials can't redirect—they need to be parsed locally by the device.
+This one is huge for conferences and webinars. Instead of hoping people manually add your session to their calendar, you generate a QR code for each session and print it on the program or badge. They scan it, event is saved.
 
-This is one of the most useful non-URL code types. Guests scan a code on the wall and connect instantly without asking for the password or typing random characters.
+Restaurants use this for reservation confirmations. Concert venues put them on tickets. Anywhere you're scheduling something and you want it to show up in the user's calendar without them typing anything.
 
-## 4. Email
+Works offline—the event data is in the code. If you need to update the venue or time after printing, you can make it dynamic by encoding a URL that serves an `.ics` file instead of embedding the event directly. But most people just embed it.
 
-**What it does:** Opens the default email app with a pre-filled recipient, subject, and body.
+## Plain Text
 
-**Encoding:** `mailto:` URL scheme with optional subject and body parameters.
+This one is just raw text. Scan the code and your phone displays the string. No action, no app launch, just text on screen.
 
-**Works offline:** No—requires an email app and internet to send.
+Why would you use this? Serial numbers, product IDs, multi-language instructions, passwords for initial setup. Anything where you need machine-readable data but don't want the code to do anything interactive.
 
-**Use cases:** Customer support contact cards, feedback forms, event RSVPs, "email us" buttons on print materials.
+It's basically a barcode that humans can also read if they have a QR scanner. Always static.
 
-**Dynamic or static:** Can be either. Static codes embed the full `mailto:` link. Dynamic codes let you update the recipient or subject line without reprinting.
+## Location (Geo Coordinates)
 
-Useful for print materials where you want to capture feedback or inquiries without forcing users to type an email address.
+Encodes latitude and longitude in a `geo:` URL scheme. Scan it and your maps app opens with the location pinned, ready for navigation.
 
-## 5. SMS
+Event venues, retail stores, real estate listings, hiking trailheads—anywhere you want to make it easy to navigate to a physical location without typing an address.
 
-**What it does:** Opens the default SMS app with a pre-filled recipient and message body.
+You can make these dynamic if you run a multi-location business or pop-up shop and need to update the coordinates. But usually you just hardcode the lat/long.
 
-**Encoding:** `sms:` or `smsto:` URL scheme with phone number and optional body text.
+Requires internet to load the map tiles, so not offline.
 
-**Works offline:** No—requires cellular or internet-based SMS service.
+## Social Links
 
-**Use cases:** Contest entries ("text JOIN to 12345"), appointment reminders, event check-ins, campaign opt-ins, customer support shortcuts.
+This is technically just a URL, but the intent is different enough that most people call it out separately. You're encoding a link to a social profile (Instagram, Twitter, LinkedIn) or an action link (follow, message, share).
 
-**Dynamic or static:** Can be either. Static codes embed the phone number and message. Dynamic codes let you rotate phone numbers or update the pre-filled text.
+Influencer marketing, event badges, storefront signage—anywhere you want to drive follows or engagement. You can encode platform-specific URLs like `https://instagram.com/username` or intent URLs like `https://twitter.com/intent/follow?screen_name=username`.
 
-Particularly effective for marketing campaigns where you want users to send a keyword to a shortcode.
+If you're running a campaign where you might switch platforms or test different accounts, make it dynamic so you can update the destination without reprinting.
 
-## 6. Phone
+## App Store Links
 
-**What it does:** Opens the phone dialer with a pre-filled number.
+Opens the App Store (iOS) or Play Store (Android) to your app's listing. The smart way to do this is to use a dynamic URL that detects the user's OS and routes accordingly—one QR code works for both platforms.
 
-**Encoding:** `tel:` URL scheme with the phone number.
+In-store displays, product packaging, event check-in apps, retail loyalty programs. Anywhere your goal is driving installs.
 
-**Works offline:** Yes on the dialing step, but you need cellular service to complete the call.
-
-**Use cases:** Business cards, customer support hotlines, "call now" ads, service appointment booking, taxi/ride-hailing numbers.
-
-**Dynamic or static:** Can be either. Static codes embed the number. Dynamic codes let you route calls to different numbers based on time, location, or campaign performance.
-
-Simple but effective for reducing friction in call-based conversions.
-
-## 7. Calendar Event (iCal/vEvent)
-
-**What it does:** Adds an event to the user's calendar when scanned.
-
-**Encoding:** iCalendar (`.ics`) format with event title, start/end times, location, and description.
-
-**Works offline:** Yes—event data is embedded in the matrix and parsed locally.
-
-**Use cases:** Conference sessions, webinar reminders, appointment confirmations, concert tickets, restaurant reservations, meeting invites.
-
-**Dynamic or static:** Typically static, since event details are usually finalized before printing. You can make it dynamic by encoding a URL that serves an `.ics` file, allowing updates if the venue or time changes.
-
-Great for event-heavy industries like conferences, entertainment, and professional services.
-
-## 8. Plain Text
-
-**What it does:** Displays raw text when scanned (no action taken, just shows the text).
-
-**Encoding:** Plain string data encoded directly in the matrix.
-
-**Works offline:** Yes—text is embedded in the code.
-
-**Use cases:** Serial numbers, product IDs, instructions, codes/passwords, troubleshooting info, notes, multi-language labels.
-
-**Dynamic or static:** Always static. Plain text can't redirect—it's just data.
-
-This type is useful for non-interactive information that needs to be machine-readable but doesn't trigger an action. Think of it as a human-readable barcode.
-
-## 9. Location (Geo)
-
-**What it does:** Opens the default maps app with a pinned location or starts navigation.
-
-**Encoding:** `geo:` URL scheme with latitude and longitude (e.g., `geo:37.7749,-122.4194`).
-
-**Works offline:** No—requires maps app and internet for map tiles.
-
-**Use cases:** Event venues, retail stores, real estate listings, hiking trailheads, delivery addresses, tourist attractions.
-
-**Dynamic or static:** Can be either. Static codes embed the coordinates. Dynamic codes let you update the location (useful for multi-location businesses or rotating pop-ups).
-
-Particularly effective for driving foot traffic from print ads or flyers.
-
-## 10. Social Links
-
-**What it does:** Opens a social media profile or action (follow, message, share).
-
-**Encoding:** Platform-specific URL schemes (e.g., `https://instagram.com/username`, `https://twitter.com/intent/follow?screen_name=username`).
-
-**Works offline:** No—requires internet to load the profile.
-
-**Use cases:** Influencer marketing, business cards, event badges, storefront signage, product packaging, "follow us" campaigns.
-
-**Dynamic or static:** Can be either. Static codes embed the profile URL. Dynamic codes let you switch platforms or usernames (useful for campaign testing or account migrations).
-
-Often used in conjunction with URL codes, but calling it out as a distinct type since the intent and metrics differ.
-
-## 11. App Store
-
-**What it does:** Opens the App Store (iOS) or Play Store (Android) to a specific app's listing.
-
-**Encoding:** Platform-specific URLs or universal links that detect the device OS and route accordingly.
-
-**Works offline:** No—requires internet to load the store.
-
-**Use cases:** App install campaigns, in-store displays, product packaging for apps with companion experiences, event check-in apps, retail loyalty programs.
-
-**Dynamic or static:** Should be dynamic to handle cross-platform routing. A single QR code can redirect iOS users to the App Store and Android users to the Play Store based on user agent detection.
-
-Critical for mobile-first products where the goal is driving installs.
+You can encode direct store URLs like `https://apps.apple.com/app/idXXXXXX`, but that only works on iOS. Better to use a service or API that handles cross-platform routing.
 
 ## Summary Table
+
+Here's the full list with key details:
 
 | Type | Encoding | Works Offline? | Primary Use Case |
 |------|----------|----------------|------------------|
@@ -185,14 +111,15 @@ Critical for mobile-first products where the goal is driving installs.
 
 ## Generating These with an API
 
-Most QR code libraries and APIs only support URLs. If you want to create a vCard or WiFi code, you're on your own to format the data correctly according to the spec.
+Most QR libraries only support URLs. If you want a vCard or WiFi code, you're responsible for formatting the data correctly according to the spec. Which means reading the vCard RFC or the WiFi QR format docs and hoping you got the syntax right.
 
-QR for Agent handles encoding for all 11 types. You pass structured data, and the API generates the appropriate format:
+QR for Agent handles the encoding for all 11 types. You pass structured JSON, the API formats it, returns a scannable image.
+
+Here's a vCard example:
 
 ```bash
-# vCard example
-curl -X POST https://api.qrforagent.com/v1/qr \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+curl -X POST https://api.qrforagent.com/api/qr \
+  -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "type": "vcard",
@@ -207,10 +134,11 @@ curl -X POST https://api.qrforagent.com/v1/qr \
   }'
 ```
 
+WiFi credentials:
+
 ```bash
-# WiFi example
-curl -X POST https://api.qrforagent.com/v1/qr \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+curl -X POST https://api.qrforagent.com/api/qr \
+  -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "type": "wifi",
@@ -222,10 +150,11 @@ curl -X POST https://api.qrforagent.com/v1/qr \
   }'
 ```
 
+Calendar event:
+
 ```bash
-# Calendar event example
-curl -X POST https://api.qrforagent.com/v1/qr \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+curl -X POST https://api.qrforagent.com/api/qr \
+  -H "X-API-Key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "type": "event",
@@ -239,21 +168,21 @@ curl -X POST https://api.qrforagent.com/v1/qr \
   }'
 ```
 
-The API validates the data, formats it correctly, and returns a scannable QR code image. You don't need to memorize vCard syntax or iCalendar quirks.
+The API validates your data, formats it to spec, and returns the QR code. You don't memorize vCard syntax or figure out how to escape special characters in WiFi passwords.
 
-## Which Type Should You Use?
+## Which Type to Use
 
-**Default to URL codes** for most use cases. They're flexible, trackable (when dynamic), and work across all devices.
+Default to URL for most things. It's flexible, trackable (if dynamic), and works everywhere.
 
-**Use specialized types** when they directly match the user's intent:
+Use specialized types when they directly match what the user is trying to do:
 
-- **Business cards → vCard** (one scan imports everything)
-- **Guest WiFi → WiFi code** (no password typing)
-- **Event tickets → Event code** (automatic calendar add)
-- **Support contact → Phone or Email code** (one-tap action)
+- Handing out your contact info? vCard.
+- Sharing WiFi credentials? WiFi code.
+- Promoting an event? Calendar code.
+- Driving app installs? App Store link with OS detection.
 
-**Use dynamic URL codes** when you need analytics or the ability to update destinations. Even if you're encoding a vCard, you can serve it via a URL for dynamic control.
+If you're not sure, start with a URL. You can always serve vCard or iCal data from a URL endpoint if you want dynamic control.
 
-All 11 types are available through QR for Agent's API and MCP server. Free tier includes 10 codes and 1,000 scans per month—enough to test all types and see what works for your use case.
+All 11 types are available through QR for Agent's API and MCP server. Free tier is 10 codes and 1,000 scans per month—enough to test everything and see what fits your use case.
 
-[Try it free](/get-started) and start generating codes beyond URLs.
+[Try it free](/get-started) and start generating codes that do more than open a webpage.
