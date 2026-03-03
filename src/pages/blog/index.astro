@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Section from "../../components/Section.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import CTASection from "../../components/CTASection.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout
+  title="Blog — QR for Agent"
+  description="Technical articles about dynamic QR codes, MCP servers, and building QR code integrations for AI agents."
+>
+  <Section padding="large">
+    <SectionHeading
+      title="Blog"
+      description="Technical articles about dynamic QR codes, AI agents, and the MCP ecosystem."
+    />
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <BlogCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          slug={post.id}
+        />
+      ))}
+    </div>
+  </Section>
+
+  <CTASection
+    title="Ready to get started?"
+    description="Create your first dynamic QR code in seconds. Free, no credit card required."
+    primaryCTA={{ text: "Get API Key", href: "/get-started" }}
+    secondaryCTA={{ text: "Read the docs", href: "/docs" }}
+  />
+</BaseLayout>

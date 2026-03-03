@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Container from "../../components/Container.astro";
+import CTASection from "../../components/CTASection.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = post.data.date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const siteUrl = "https://qrforagent.com";
+---
+
+<BaseLayout title={`${post.data.title} — QR for Agent`} description={post.data.description}>
+  <article class="py-(--spacing-section)">
+    <Container>
+      <!-- Back link -->
+      <a href="/blog" class="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8">
+        &larr; Back to blog
+      </a>
+
+      <!-- Header -->
+      <header class="mb-12">
+        <time class="text-sm text-muted-foreground">{formattedDate}</time>
+        <h1 class="mt-3 text-(--text-h1) font-bold tracking-tight text-foreground">
+          {post.data.title}
+        </h1>
+        <p class="mt-4 text-(--text-body-lg) text-muted-foreground max-w-3xl">
+          {post.data.description}
+        </p>
+      </header>
+
+      <!-- Content -->
+      <div class="prose">
+        <Content />
+      </div>
+    </Container>
+  </article>
+
+  <!-- JSON-LD BlogPosting -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.data.title,
+    "description": post.data.description,
+    "datePublished": post.data.date.toISOString(),
+    "author": {
+      "@type": "Organization",
+      "name": "QR for Agent",
+      "url": siteUrl
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "QR for Agent",
+      "url": siteUrl
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/blog/${post.id}`
+    }
+  })} />
+
+  <CTASection
+    title="Ready to get started?"
+    description="Create your first dynamic QR code in seconds. Free, no credit card required."
+    primaryCTA={{ text: "Get API Key", href: "/get-started" }}
+    secondaryCTA={{ text: "Read the docs", href: "/docs" }}
+  />
+</BaseLayout>
