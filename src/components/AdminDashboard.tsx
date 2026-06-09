@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-const API_BASE = "https://qr-agent-core-production.up.railway.app";
+const API_BASE = "https://api.qrforagent.com";
 
 interface Stats {
   users: {

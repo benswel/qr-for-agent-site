@@ -22,9 +22,9 @@ QR for Agent is a QR-as-a-Service platform designed specifically for AI agents a
 The project is MIT-licensed and fully open source. Self-hosting is supported via Docker.
 
 **Website:** https://qrforagent.com
-**GitHub:** https://github.com/benswel/qr-agent-core
+**GitHub:** https://github.com/benswel/qr-for-agent-api
 **npm:** https://www.npmjs.com/package/qr-for-agent
-**API Base URL:** https://api.qragentcore.com
+**API Base URL:** https://api.qrforagent.com
 
 ---
 
@@ -33,7 +33,7 @@ The project is MIT-licensed and fully open source. Self-hosting is supported via
 ### Step 1: Get an API Key
 
 ```bash
-curl -X POST https://api.qragentcore.com/api/register \
+curl -X POST https://api.qrforagent.com/api/register \
   -H "Content-Type: application/json" \
   -d '{"email": "you@example.com", "label": "My App"}'
 ```
@@ -69,7 +69,7 @@ Then ask your AI agent: "Create a QR code for https://example.com"
 ### Step 3: Create Your First QR Code (via API)
 
 ```bash
-curl -X POST https://api.qragentcore.com/api/qr \
+curl -X POST https://api.qrforagent.com/api/qr \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{"target_url": "https://example.com", "label": "My First QR"}'
@@ -80,7 +80,7 @@ Response:
 {
   "id": 1,
   "short_id": "wkQ5W-fm",
-  "short_url": "https://api.qragentcore.com/r/wkQ5W-fm",
+  "short_url": "https://api.qrforagent.com/r/wkQ5W-fm",
   "target_url": "https://example.com",
   "label": "My First QR",
   "qr_code_svg": "<svg>...</svg>",
@@ -134,7 +134,7 @@ Creates a dynamic QR code pointing to a short URL that redirects to your target.
 
 **Example: Custom styled QR code**
 ```bash
-curl -X POST https://api.qragentcore.com/api/qr \
+curl -X POST https://api.qrforagent.com/api/qr \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{
@@ -151,7 +151,7 @@ curl -X POST https://api.qragentcore.com/api/qr \
 
 **Example: vCard QR code**
 ```bash
-curl -X POST https://api.qragentcore.com/api/qr \
+curl -X POST https://api.qrforagent.com/api/qr \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{
@@ -168,7 +168,7 @@ curl -X POST https://api.qragentcore.com/api/qr \
 
 **Example: WiFi QR code**
 ```bash
-curl -X POST https://api.qragentcore.com/api/qr \
+curl -X POST https://api.qrforagent.com/api/qr \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{
@@ -186,7 +186,7 @@ curl -X POST https://api.qragentcore.com/api/qr \
 Update the target URL, label, or style of an existing QR code. The QR image stays the same.
 
 ```bash
-curl -X PATCH https://api.qragentcore.com/api/qr/wkQ5W-fm \
+curl -X PATCH https://api.qrforagent.com/api/qr/wkQ5W-fm \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{"target_url": "https://new-destination.com"}'
@@ -195,14 +195,14 @@ curl -X PATCH https://api.qragentcore.com/api/qr/wkQ5W-fm \
 ### GET /api/qr — List QR codes
 
 ```bash
-curl https://api.qragentcore.com/api/qr?limit=10&offset=0 \
+curl https://api.qrforagent.com/api/qr?limit=10&offset=0 \
   -H "X-API-Key: qr_YOUR_KEY"
 ```
 
 ### DELETE /api/qr/:shortId — Delete a QR code
 
 ```bash
-curl -X DELETE https://api.qragentcore.com/api/qr/wkQ5W-fm \
+curl -X DELETE https://api.qrforagent.com/api/qr/wkQ5W-fm \
   -H "X-API-Key: qr_YOUR_KEY"
 ```
 
@@ -211,7 +211,7 @@ curl -X DELETE https://api.qragentcore.com/api/qr/wkQ5W-fm \
 Returns breakdowns by device, browser, OS, country, referer, and daily trends.
 
 ```bash
-curl https://api.qragentcore.com/api/analytics/wkQ5W-fm?period=30d \
+curl https://api.qrforagent.com/api/analytics/wkQ5W-fm?period=30d \
   -H "X-API-Key: qr_YOUR_KEY"
 ```
 
@@ -227,7 +227,7 @@ Response includes:
 ### PATCH /api/qr/:shortId/utm — Set UTM parameters
 
 ```bash
-curl -X PATCH https://api.qragentcore.com/api/qr/wkQ5W-fm/utm \
+curl -X PATCH https://api.qrforagent.com/api/qr/wkQ5W-fm/utm \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{
@@ -240,7 +240,7 @@ curl -X PATCH https://api.qragentcore.com/api/qr/wkQ5W-fm/utm \
 ### PATCH /api/qr/:shortId/redirect-rules — Set conditional redirects
 
 ```bash
-curl -X PATCH https://api.qragentcore.com/api/qr/wkQ5W-fm/redirect-rules \
+curl -X PATCH https://api.qrforagent.com/api/qr/wkQ5W-fm/redirect-rules \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{
@@ -262,7 +262,7 @@ Condition types: `device`, `os`, `country`, `language`, `time`, `ab_split`.
 ### POST /api/qr/bulk — Bulk create (up to 50)
 
 ```bash
-curl -X POST https://api.qragentcore.com/api/qr/bulk \
+curl -X POST https://api.qrforagent.com/api/qr/bulk \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{
@@ -276,7 +276,7 @@ curl -X POST https://api.qragentcore.com/api/qr/bulk \
 ### POST /api/qr/bulk/csv — Bulk create from CSV (up to 500, Pro only)
 
 ```bash
-curl -X POST https://api.qragentcore.com/api/qr/bulk/csv \
+curl -X POST https://api.qrforagent.com/api/qr/bulk/csv \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{
@@ -289,7 +289,7 @@ CSV columns: `target_url` (required), `label`, `format`, `type`, `foreground_col
 ### POST /api/webhooks — Register a webhook
 
 ```bash
-curl -X POST https://api.qragentcore.com/api/webhooks \
+curl -X POST https://api.qrforagent.com/api/webhooks \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{"url": "https://your-server.com/webhook", "events": ["qr.scanned", "qr.conversion"]}'
@@ -304,7 +304,7 @@ Each delivery is signed with HMAC-SHA256. The `secret` is returned once at creat
 Zero-JavaScript conversion tracking. Embed as an invisible image on your thank-you page.
 
 ```html
-<img src="https://api.qragentcore.com/t/wkQ5W-fm?event=purchase&value=49.99" width="1" height="1" alt="" />
+<img src="https://api.qrforagent.com/t/wkQ5W-fm?event=purchase&value=49.99" width="1" height="1" alt="" />
 ```
 
 Returns a 1x1 transparent GIF. No authentication required.
@@ -312,7 +312,7 @@ Returns a 1x1 transparent GIF. No authentication required.
 ### POST /api/conversions — Record a conversion (authenticated)
 
 ```bash
-curl -X POST https://api.qragentcore.com/api/conversions \
+curl -X POST https://api.qrforagent.com/api/conversions \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{"short_id": "wkQ5W-fm", "event": "purchase", "value": 49.99}'
@@ -321,7 +321,7 @@ curl -X POST https://api.qragentcore.com/api/conversions \
 ### GET /api/conversions/:shortId — Conversion stats
 
 ```bash
-curl https://api.qragentcore.com/api/conversions/wkQ5W-fm?period=30d \
+curl https://api.qrforagent.com/api/conversions/wkQ5W-fm?period=30d \
   -H "X-API-Key: qr_YOUR_KEY"
 ```
 
@@ -330,7 +330,7 @@ Response includes `total_conversions`, `total_value`, `by_event`, `by_day`, `rec
 ### PUT /api/domain — Set custom domain (Pro only)
 
 ```bash
-curl -X PUT https://api.qragentcore.com/api/domain \
+curl -X PUT https://api.qrforagent.com/api/domain \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{"domain": "qr.yourbrand.com"}'
@@ -339,7 +339,7 @@ curl -X PUT https://api.qragentcore.com/api/domain \
 ### GET /api/usage — Get current usage and quota
 
 ```bash
-curl https://api.qragentcore.com/api/usage \
+curl https://api.qrforagent.com/api/usage \
   -H "X-API-Key: qr_YOUR_KEY"
 ```
 
@@ -452,8 +452,8 @@ QR for Agent is MIT-licensed and fully self-hostable.
 ### Docker
 
 ```bash
-git clone https://github.com/benswel/qr-agent-core.git
-cd qr-agent-core
+git clone https://github.com/benswel/qr-for-agent-api.git
+cd qr-for-agent-api
 docker build -t qr-agent .
 docker run -p 3000:3000 -v qr-data:/app/data qr-agent
 ```
@@ -475,7 +475,7 @@ docker run -p 3000:3000 -v qr-data:/app/data qr-agent
 | Variable | Required | Description |
 |----------|----------|-------------|
 | QR_API_KEY | Yes | Your API key |
-| QR_BASE_URL | No (default: https://api.qragentcore.com) | API base URL (set to your self-hosted URL) |
+| QR_BASE_URL | No (default: https://api.qrforagent.com) | API base URL (set to your self-hosted URL) |
 
 ---
 

@@ -15,7 +15,7 @@ export default function WaitlistForm() {
     setError("");
 
     try {
-      const res = await fetch("https://qr-agent-core-production.up.railway.app/api/waitlist", {
+      const res = await fetch("https://api.qrforagent.com/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

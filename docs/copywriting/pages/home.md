@@ -25,7 +25,7 @@ npx qr-for-agent
 **Supporting line:** 30 seconds from install to your first QR code.
 
 **CTA primary:** Get Your API Key → #get-started
-**CTA secondary:** View on GitHub → https://github.com/benswel/qr-agent-core
+**CTA secondary:** View on GitHub → https://github.com/benswel/qr-for-agent-api
 ### Notes visuelles
 Full-width hero with dark background. The terminal snippet is the visual centerpiece -- render it as a real terminal window (dark theme, monospace font). No illustrations, no stock photos. The code speaks for itself. Below the terminal: two buttons side by side (primary filled, secondary outlined).
 
@@ -53,8 +53,8 @@ https://conf.example.com/2026 and give me the scan tracking URL.
   "id": "qr_8x7k2m",
   "type": "dynamic",
   "target_url": "https://conf.example.com/2026",
-  "qr_code_url": "https://api.qragentcore.com/qr/qr_8x7k2m.png",
-  "scan_tracking": "https://api.qragentcore.com/qr/qr_8x7k2m/scans",
+  "qr_code_url": "https://api.qrforagent.com/qr/qr_8x7k2m.png",
+  "scan_tracking": "https://api.qrforagent.com/qr/qr_8x7k2m/scans",
   "created_at": "2026-02-24T10:30:00Z"
 }
 ```
@@ -89,7 +89,7 @@ Add your API key:
       "args": ["-y", "qr-for-agent"],
       "env": {
         "API_KEY": "your-api-key",
-        "BASE_URL": "https://api.qragentcore.com"
+        "BASE_URL": "https://api.qrforagent.com"
       }
     }
   }
@@ -208,7 +208,7 @@ QR for Agent is MIT-licensed. If we disappear tomorrow, your QR codes keep worki
 
 Self-host on your infrastructure with Docker or Railway. Or use the hosted API and skip the ops work. Your call.
 
-**CTA primary:** View on GitHub → https://github.com/benswel/qr-agent-core
+**CTA primary:** View on GitHub → https://github.com/benswel/qr-for-agent-api
 **CTA secondary:** Read the Docs → /docs
 ### Notes visuelles
 Centered layout. Minimal. A GitHub repo card embed (or a styled link to the repo showing stars, language, license). Dark background to set it apart from other sections. No decorative elements -- the GitHub link is the visual anchor.
@@ -229,7 +229,7 @@ npx qr-for-agent
 ```
 
 **CTA primary:** Get Your API Key → #get-started
-**CTA secondary:** View on GitHub → https://github.com/benswel/qr-agent-core
+**CTA secondary:** View on GitHub → https://github.com/benswel/qr-for-agent-api
 ### Notes visuelles
 Full-width section with a dark or brand-colored background. Large centered text. Terminal snippet below the subtitle. Two buttons side by side, same layout as the hero. This section should feel like a bookend -- visually echoing the hero to create closure.
 

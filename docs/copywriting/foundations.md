@@ -8,7 +8,7 @@
 | Features | /#features |
 | Docs | /docs |
 | Pricing | /pricing |
-| GitHub | https://github.com/benswel/qr-agent-core |
+| GitHub | https://github.com/benswel/qr-for-agent-api |
 
 ### CTA header
 - **Texte :** Get API Key
@@ -32,7 +32,7 @@
 
 ### CTA secondaire (engagement faible)
 - **Texte :** View on GitHub
-- **Destination :** https://github.com/benswel/qr-agent-core
+- **Destination :** https://github.com/benswel/qr-for-agent-api
 - **Utilisé sur :** Hero (à côté du CTA primaire), section open source
 
 ### CTA tertiaire (exploration)

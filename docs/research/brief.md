@@ -5,7 +5,7 @@
 - **Marché géographique :** International (site en anglais)
 - **Site actuel :** Aucun (landing page à créer)
 - **Objectif du site :** Générer des sign-ups (obtenir une API key)
-- **Repo :** https://github.com/benswel/qr-agent-core
+- **Repo :** https://github.com/benswel/qr-for-agent-api
 
 ## Business
 

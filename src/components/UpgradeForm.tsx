@@ -14,7 +14,7 @@ export default function UpgradeForm() {
     setError("");
 
     try {
-      const res = await fetch("https://qr-agent-core-production.up.railway.app/api/stripe/checkout", {
+      const res = await fetch("https://api.qrforagent.com/api/stripe/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
