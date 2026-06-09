@@ -2,7 +2,7 @@
 
 ## What is this?
 
-Marketing site for **QR for Agent** (qrforagent.com) — a QR-as-a-Service API built for AI agents. This is the static site, not the API backend (separate repo: `benswel/qr-agent-core`).
+Marketing site for **QR for Agent** (qrforagent.com) — a QR-as-a-Service API built for AI agents. This is the static site, not the API backend (separate repo: `benswel/qr-for-agent-api`).
 
 ## Live URLs
 

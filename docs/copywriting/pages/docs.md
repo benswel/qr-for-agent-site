@@ -48,7 +48,7 @@ Create a dynamic QR code for https://example.com
 Or call the REST API directly:
 
 ```bash
-curl -X POST https://api.qragentcore.com/api/qr \
+curl -X POST https://api.qrforagent.com/api/qr \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY_HERE" \
   -d '{"target_url": "https://example.com", "label": "My first QR"}'
@@ -60,7 +60,7 @@ Response:
 {
   "id": 1,
   "short_id": "wkQ5W-fm",
-  "short_url": "https://api.qragentcore.com/r/wkQ5W-fm",
+  "short_url": "https://api.qrforagent.com/r/wkQ5W-fm",
   "target_url": "https://example.com",
   "label": "My first QR",
   "format": "svg",
@@ -98,7 +98,7 @@ Add to your `claude_desktop_config.json`:
       "args": ["-y", "qr-for-agent"],
       "env": {
         "API_KEY": "your-api-key",
-        "BASE_URL": "https://api.qragentcore.com"
+        "BASE_URL": "https://api.qrforagent.com"
       }
     }
   }
@@ -119,7 +119,7 @@ Add to `.cursor/mcp.json` in your project root:
       "args": ["-y", "qr-for-agent"],
       "env": {
         "API_KEY": "your-api-key",
-        "BASE_URL": "https://api.qragentcore.com"
+        "BASE_URL": "https://api.qrforagent.com"
       }
     }
   }
@@ -184,7 +184,7 @@ All `/api/*` endpoints require an `X-API-Key` header. Public endpoints (`/r/*`, 
 | `format` | string | No | `"svg"` | Image format: `"svg"` (recommended) or `"png"`. |
 
 ```bash
-curl -X POST https://api.qragentcore.com/api/qr \
+curl -X POST https://api.qrforagent.com/api/qr \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{
@@ -200,7 +200,7 @@ curl -X POST https://api.qragentcore.com/api/qr \
 {
   "id": 1,
   "short_id": "wkQ5W-fm",
-  "short_url": "https://api.qragentcore.com/r/wkQ5W-fm",
+  "short_url": "https://api.qrforagent.com/r/wkQ5W-fm",
   "target_url": "https://conf.example.com/2026",
   "label": "Conference landing page",
   "format": "svg",
@@ -214,7 +214,7 @@ curl -X POST https://api.qragentcore.com/api/qr \
 The QR image stays the same. Only the redirect target changes. This is the core dynamic link feature.
 
 ```bash
-curl -X PATCH https://api.qragentcore.com/api/qr/wkQ5W-fm \
+curl -X PATCH https://api.qrforagent.com/api/qr/wkQ5W-fm \
   -H "Content-Type: application/json" \
   -H "X-API-Key: qr_YOUR_KEY" \
   -d '{"target_url": "https://new-destination.com"}'
@@ -230,7 +230,7 @@ curl -X PATCH https://api.qragentcore.com/api/qr/wkQ5W-fm \
 | `offset` | integer | `0` | Number of records to skip. |
 
 ```bash
-curl https://api.qragentcore.com/api/qr?limit=10&offset=0 \
+curl https://api.qrforagent.com/api/qr?limit=10&offset=0 \
   -H "X-API-Key: qr_YOUR_KEY"
 ```
 
@@ -239,7 +239,7 @@ curl https://api.qragentcore.com/api/qr?limit=10&offset=0 \
 Returns total scan count and the 50 most recent scan events.
 
 ```bash
-curl https://api.qragentcore.com/api/analytics/wkQ5W-fm \
+curl https://api.qrforagent.com/api/analytics/wkQ5W-fm \
   -H "X-API-Key: qr_YOUR_KEY"
 ```
 
@@ -264,7 +264,7 @@ curl https://api.qragentcore.com/api/analytics/wkQ5W-fm \
 Permanently removes the QR code and all associated scan analytics. The short URL stops working immediately. This cannot be undone.
 
 ```bash
-curl -X DELETE https://api.qragentcore.com/api/qr/wkQ5W-fm \
+curl -X DELETE https://api.qrforagent.com/api/qr/wkQ5W-fm \
   -H "X-API-Key: qr_YOUR_KEY"
 ```
 
@@ -332,7 +332,7 @@ Quick reference for configuration. Two variables for the MCP server, five for se
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `API_KEY` | Yes | -- | Your QR for Agent API key. Format: `qr_` + 32 chars. |
-| `BASE_URL` | No | `http://localhost:3100` | The URL of your QR for Agent instance. Use `https://api.qragentcore.com` for the hosted service. |
+| `BASE_URL` | No | `http://localhost:3100` | The URL of your QR for Agent instance. Use `https://api.qrforagent.com` for the hosted service. |
 
 ### Self-Hosted Server
 
@@ -362,8 +362,8 @@ QR for Agent is open source and MIT-licensed. Run it on your own infrastructure 
 ### Docker
 
 ```bash
-git clone https://github.com/benswel/qr-agent-core.git
-cd qr-agent-core
+git clone https://github.com/benswel/qr-for-agent-api.git
+cd qr-for-agent-api
 docker compose up -d
 ```
 
@@ -375,7 +375,7 @@ On first startup, an API key is auto-generated and printed to the console. Use `
 
 ```yaml
 services:
-  qr-agent-core:
+  qr-for-agent-api:
     build: .
     ports:
       - "3100:3100"
@@ -405,8 +405,8 @@ Set `BASE_URL` to your Railway domain in the environment variables.
 ### Without Docker
 
 ```bash
-git clone https://github.com/benswel/qr-agent-core.git
-cd qr-agent-core
+git clone https://github.com/benswel/qr-for-agent-api.git
+cd qr-for-agent-api
 npm install
 npm run dev
 ```
@@ -422,7 +422,7 @@ npm run key:list                 # List all API keys
 
 Teams keep rebuilding small but critical utilities -- QR codes, short URLs, tokens -- over and over again. We built it once, correctly, and opened the source.
 
-**CTA:** [View on GitHub](https://github.com/benswel/qr-agent-core)
+**CTA:** [View on GitHub](https://github.com/benswel/qr-for-agent-api)
 
 ### Notes visuelles
 Two or three tabbed sections: "Docker", "Railway", "Manual". Each tab shows only the relevant commands. The docker-compose.yml should be displayed in a full-width code block. The GitHub CTA at the bottom should be a prominent button. Consider a subtle GitHub repo card showing stars, language (TypeScript), and license (MIT).
@@ -444,9 +444,9 @@ npx qr-for-agent
 ```
 
 **CTA primary:** [Get Your API Key](#get-started)
-**CTA secondary:** [View on GitHub](https://github.com/benswel/qr-agent-core)
+**CTA secondary:** [View on GitHub](https://github.com/benswel/qr-for-agent-api)
 
-Questions? Open an issue on [GitHub](https://github.com/benswel/qr-agent-core/issues) or check the [OpenAPI docs](https://api.qragentcore.com/documentation) (Swagger UI).
+Questions? Open an issue on [GitHub](https://github.com/benswel/qr-for-agent-api/issues) or check the [OpenAPI docs](https://api.qrforagent.com/documentation) (Swagger UI).
 
 ### Notes visuelles
 Full-width section with dark background. Terminal snippet centered. Two buttons side by side (primary filled, secondary outlined). Mirrors the hero section of the homepage for visual consistency. Keep it minimal -- no new information, just conviction.

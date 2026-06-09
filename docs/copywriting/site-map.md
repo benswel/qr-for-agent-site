@@ -14,7 +14,7 @@
 Home (/)
 ├── → Docs (/docs) — linked in Demo, Features, Use Cases, Open Source
 ├── → Pricing (/pricing) — linked in Comparison section
-├── → GitHub (https://github.com/benswel/qr-agent-core) — Hero, Open Source, CTA Final
+├── → GitHub (https://github.com/benswel/qr-for-agent-api) — Hero, Open Source, CTA Final
 └── → #get-started — Hero, How It Works, CTA Final
 
 Docs (/docs)

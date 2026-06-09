@@ -3,7 +3,7 @@
 ## Vue d'ensemble
 - **Nombre de pages :** 3
 - **Pages principales :** Landing, Docs, Pricing
-- **Brief stratégique :** projects/qr-agent-core/research/strategic-brief.md
+- **Brief stratégique :** projects/qr-for-agent-api/research/strategic-brief.md
 - **Langue :** Anglais (marché international)
 
 ## Pages
